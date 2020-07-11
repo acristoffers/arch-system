@@ -12,9 +12,12 @@ fi
 ###                                                                          ###
 ################################################################################
 
-curl https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz > yay.tar.gz
-sudo pacman -U yay.tar.gz
-rm yay.tar.gz
+pushd ~ || exit
+git clone https://aur.archlinux.org/yay.git
+cd yay || exit
+makepkg -si
+popd || exit
+rm -rf yay
 
 ################################################################################
 ###                                                                          ###
