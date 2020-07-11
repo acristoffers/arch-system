@@ -13,8 +13,9 @@ fi
 ################################################################################
 
 pushd ~ || exit
-git clone https://aur.archlinux.org/yay.git
+git clone https://aur.archlinux.org/yay.git --depth=1
 cd yay || exit
+sudo pacman -S binutils fakeroot
 makepkg -si
 popd || exit
 rm -rf yay
