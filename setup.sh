@@ -6,20 +6,37 @@ if [[ "$USER" = "root" ]]; then
     exit 0
 fi
 
-sudo pacman -S fish zsh bash python3 nodejs neovim vim curl
+################################################################################
+###                                                                          ###
+###                                Setup AUR                                 ###
+###                                                                          ###
+################################################################################
+
+curl https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz > yay.tar.gz
+sudo pacman -U yay.tar.gz
+rm yay.tar.gz
+
+################################################################################
+###                                                                          ###
+###                      Configures shells and (neo)vim                      ###
+###                                                                          ###
+################################################################################
+
+sudo yay -S fish zsh bash python3 nodejs neovim vim curl
 
 pip3 install neovim jedi python-language-server
 npm -g i neovim
 
+pushd ~ || exit
 git clone https://github.com/acristoffers/shell_profile_generator
 pushd shell_profile_generator || exit
 python3 install.py fish bash zsh
 popd || exit
 rm -rf shell_profile_generator
+popd || exit
 
-git clone https://gist.github.com/544347bc4c920527f75a1612db4c689a.git config
-mv config/.vimrc ~/.vimrc
-rm -rf config
+VIMRC_URL=https://gist.github.com/acristoffers/544347bc4c920527f75a1612db4c689a/raw/.vimrc
+curl -L $VIMRC_URL >> ~/.vimrc
 
 pushd ~ || exit
 rm -rf .vim .config/nvim .local/share/nvim &> /dev/null

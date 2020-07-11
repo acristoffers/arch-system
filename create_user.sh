@@ -12,3 +12,5 @@ printf "%s\tALL=(ALL:ALL) ALL" $USERNAME >> /etc/sudoers
 
 echo "Set $USERNAME password"
 passwd $USERNAME
+
+echo "Log with your newly created user and run setup.sh"
