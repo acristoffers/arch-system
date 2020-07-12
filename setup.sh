@@ -27,7 +27,7 @@ popd || exit
 ###                                                                          ###
 ################################################################################
 
-yay -S fish zsh bash python3 nodejs neovim vim curl which npm
+yay -S fish zsh bash python3 nodejs neovim vim curl which npm python-pip
 
 pip3 install neovim jedi python-language-server
 npm -g i neovim
