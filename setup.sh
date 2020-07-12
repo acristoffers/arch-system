@@ -95,3 +95,4 @@ yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
 cp -rf dotfiles/config ~/.config
 cp -rf dotfiles/xmonad ~/.xmonad
 
+sudo systemctl enable sddm
