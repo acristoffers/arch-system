@@ -93,7 +93,7 @@ cp -r dotfiles/doom.d ~/.doom.d
 ################################################################################
 
 yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
-       alacritty firefox qalculate-gtk
+       alacritty firefox qalculate-gtk openssh xmonad-contrib
 
 cp -rf dotfiles/config ~/.config
 cp -rf dotfiles/xmonad ~/.xmonad
