@@ -27,7 +27,7 @@ popd || exit
 ###                                                                          ###
 ################################################################################
 
-yay -S fish zsh bash python3 nodejs neovim vim curl which npm python-pip
+yay -S fish zsh bash python3 nodejs neovim vim curl which npm python-pip emacs
 
 pip3 install neovim jedi python-language-server
 npm -g i neovim
@@ -78,4 +78,8 @@ if ! grep -Fq fish /etc/shells; then
     which fish | sudo tee -a /etc/shells
 fi
 chsh -s "$(which fish)"
+
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+cp -r dotfiles/doom.d ~/.doom.d
+~/.emacs.d/bin/doom install
 
