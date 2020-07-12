@@ -93,9 +93,13 @@ cp -r dotfiles/doom.d ~/.doom.d
 ################################################################################
 
 yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
-       alacritty firefox qalculate-gtk openssh xmonad-contrib
+       alacritty firefox qalculate-gtk openssh xmonad-contrib rsync
 
-cp -rf dotfiles/config ~/.config
-cp -rf dotfiles/xmonad ~/.xmonad
+mkdir -p ~/Images ~/Music ~/Documents ~/Desktop ~/Developer
+cp dotfiles/wallpaper.jpg ~/Images/wallpaper.jpg
+rsync -a dotfiles/config/ ~/.config/
+rsync -a dotfiles/xmonad/ ~/.xmonad/
 
 sudo systemctl enable sddm
+
+echo "All done. If you changed the username, nitrogen will not work automatically. Just reconfigure it."
