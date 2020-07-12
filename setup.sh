@@ -27,12 +27,13 @@ popd || exit
 ###                                                                          ###
 ################################################################################
 
-yay -S fish zsh bash python3 nodejs neovim vim curl which npm python-pip emacs
+yay -S fish zsh bash python3 nodejs neovim vim curl which npm python-pip emacs \
+       tmux
 
 mkdir ~/.npm-global
 npm config set prefix "$HOME/.npm-global"
 
-pip3 install neovim jedi python-language-server
+pip3 install neovim jedi python-language-server powerline-status
 npm -g i neovim
 
 export EDIT=nvim
@@ -47,6 +48,7 @@ rm -rf shell_profile_generator
 popd || exit
 
 cp dotfiles/vimrc ~/.vimrc
+cp dotfiles/tmux.conf ~/.tmux.conf
 
 pushd ~ || exit
 rm -rf .vim .config/nvim .local/share/nvim &> /dev/null
