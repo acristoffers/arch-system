@@ -1,0 +1,391 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""                                                                          """
+"""                       Álan's NeoVim configuration                        """
+"""                                                                          """
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'ParamagicDev/vim-medic_chalk'
+Plug 'SirVer/ultisnips'
+Plug 'acristoffers/lazygit.vim', { 'branch': 'nvim-v0.4.3' }
+Plug 'acristoffers/vim-project'
+Plug 'andymass/vim-matchup'
+Plug 'ararslan/license-to-vim'
+Plug 'chiel92/vim-autoformat'
+Plug 'dag/vim-fish'
+Plug 'dense-analysis/ale'
+Plug 'edkolev/promptline.vim'
+Plug 'honza/vim-snippets'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'jceb/vim-orgmode'
+Plug 'jeetsukumaran/vim-pythonsense'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'lervag/vimtex'
+Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-startify'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'posva/vim-vue'
+Plug 'preservim/nerdtree'
+Plug 'raimondi/delimitmate'
+Plug 'ryanoasis/vim-devicons'
+Plug 'sheerun/vim-polyglot'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'universal-ctags/ctags'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-latex/vim-latex'
+Plug 'wellle/targets.vim'
+
+call plug#end()
+
+filetype plugin indent on " required
+nnoremap <space> <nop>
+let mapleader = " "
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""                                                                          """
+"""                          Plugins Configuration                           """
+"""                                                                          """
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" License
+let g:license_author = 'Álan Crístoffer'
+let g:license_email = 'acristoffers@gmail.com'
+
+"" COC Exensions
+let g:coc_global_extensions = [
+            \ 'coc-marketplace', 'coc-tsserver', 'coc-json', 'coc-html',
+            \ 'coc-css', 'coc-python', 'coc-angular', 'coc-clangd',
+            \ 'coc-elixir', 'coc-erlang_ls', 'coc-eslint', 'coc-flutter',
+            \ 'coc-fsharp', 'coc-git', 'coc-go', 'coc-highlight',
+            \ 'coc-lsp-wl', 'coc-markdownlint', 'coc-omnisharp', 'coc-java',
+            \ 'coc-powershell', 'coc-rls', 'coc-snippets', 'coc-solargraph',
+            \ 'coc-sourcekit', 'coc-actions', 'coc-spell-checker',
+            \ 'coc-texlab', 'coc-xml', 'coc-yaml', 'coc-yank', 'coc-vetur',
+            \ 'coc-spell-checker', 'coc-cmake', 'coc-svg'
+            \ ]
+
+"" Promptline
+"" https://github.com/edkolev/promptline.vim
+if &rtp =~ 'promptline.vim'
+    let g:promptline_preset = {
+                \'a': [ promptline#slices#cwd({ 'dir_limit': 1 }) ],
+                \'b': [
+                \ promptline#slices#vcs_branch(),
+                \ promptline#slices#git_status()
+                \ ]
+                \}
+end
+
+"" ALE
+if &rtp =~ 'vim-airline'
+    let g:airline#extensions#ale#enabled=1
+    let g:ale_set_quickfix=1
+    let g:ale_fix_on_save=1
+    let g:ale_fixers = {
+                \ 'javascript': ['eslint'],
+                \ 'typescript': ['eslint'],
+                \ 'r': 'styler'
+                \ }
+end
+
+"" LaTeX Suite
+let g:tex_flavor="latex"
+
+"" NERDTree
+let NERDTreeQuitOnOpen=1
+
+"" Autoformat
+let g:formatdef_custom_c='"uncrustify -q -l C -c /Users/Alan/bin/cstyle.cfg"'
+let g:formatdef_custom_cpp='"uncrustify -q -l CPP -c /Users/Alan/bin/cstyle.cfg"'
+let g:formatdef_custom_js='"js-beautify"'
+let g:formatdef_custom_ts='"eslint --fix "'
+let g:formatters_c=['custom_c']
+let g:formatters_cpp=['custom_cpp']
+let g:formatters_javascript=['custom_js']
+let g:formatters_typescript=['custom_ts']
+
+"" Airline
+if &rtp =~ 'vim-airline'
+    let g:airline_theme='dark'
+    let g:airline_powerline_fonts=1
+    let g:airline#extensions#tabline#enabled=1
+    let g:airline#extensions#tabline#tab_nr_type=1
+    let g:airline#extensions#tabline#buffer_nr_show=1
+    let g:airline#extensions#tabline#fnamemod=':~:.:t'
+end
+
+"" Snippets
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""                                                                          """
+"""                          General Configuration                           """
+"""                                                                          """
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:python_host_prog='/usr/bin/python2'
+let g:python3_host_prog='/usr/bin/python3'
+
+silent! colorscheme medic_chalk
+
+set autoindent                     " Auto-indent new lines
+set backspace=indent,eol,start     " Backspace behaviour
+set clipboard=unnamedplus          " Use the system clipboard for copy/paste
+set encoding=UTF-8                 " Not needed in NeoVim, only in ViM
+set expandtab                      " Use spaces instead of tabs
+set hidden                         " Allows to change buffers with unsaved state
+set hlsearch                       " Highlight all search results
+set ignorecase                     " Always case-insensitive
+set incsearch                      " Searches for strings incrementally
+set linebreak                      " Break lines at word (requires Wrap lines)
+set list listchars=tab:>\ ,trail:-,eol:$ " makes list show newlines
+set mouse=a                        " Mouse integration
+set nofoldenable                   " Disable folding
+set nolist                         " disable show hidden chars
+set nospell                        " Spell checking off (set nospell to turn on)
+set number                         " Show line numbers
+set number relativenumber          " enables relative line numbers
+set ruler                          " Show row and column ruler information
+set shiftwidth=4                   " Number of auto-indent spaces
+set showbreak=+++                  " Wrap-broken line prefix
+set showmatch                      " Highlight matching brace
+set smartcase                      " Enable smart-case search
+set smartindent                    " Enable smart-indent
+set smarttab                       " Enable smart-tabs
+set softtabstop=4                  " Number of spaces per Tab
+set spelllang=en,pt_br,fr,de,it,ru " Enabled spellcheck languages
+set tabstop=4                      " Size of tabs
+set textwidth=80                   " Line wrap (number of cols)
+set undolevels=1000                " Number of undo levels
+set visualbell                     " Use visual bell (no beeping)
+set wildmenu                       " Shows menu with all options on tab complete
+
+autocmd FileType fish compiler fish
+autocmd FileType fish setlocal textwidth=80
+autocmd FileType python set foldmethod=indent
+autocmd FileType tex imap ( (<++>)<++><c-j>
+autocmd FileType tex imap [ [<++>]<++><c-j>
+autocmd FileType tex imap { {<++>}<++><c-j>
+autocmd FileType tex inoremap $$ \(<++>\)<++>
+autocmd FileType tex nmap § <F5>
+autocmd FileType tex setlocal makeprg=latexmk
+autocmd FileType tex setlocal nofoldenable
+autocmd FileType tex vmap ,eq :call VEnclose('\enquote{', '}', '\enquote{', '}')<CR>
+
+if has('nvim')
+    autocmd ColorScheme * :hi ColorColumn ctermbg=235 guibg=235
+end
+
+if exists('+colorcolumn')
+    autocmd BufEnter,FocusGained,VimEnter,WinEnter * let &l:colorcolumn='+' . join(range(1, 255), ',+')
+    autocmd FocusLost,WinLeave * let &l:colorcolumn=join(range(1, 255), ',')
+endif
+
+nnoremap <silent> <expr> x ':b' . v:count . '<CR>'
+nnoremap <silent> <expr> zz ':\|bd ' . (v:count ? v:count : '') . '<CR>'
+nnoremap <silent> <leader>g :LazyGit<CR>
+nnoremap <silent> <leader>l :ALELint<CR>
+nnoremap <silent> <leader>n :NERDTreeCWD<CR>
+nnoremap <silent> <leader>o :Files<CR>
+nnoremap <leader>s :w<CR>
+nnoremap g= :Autoformat<CR>
+nmap <C-A> <A-n>
+vmap <C-A> <A-n>
+map Y y$
+nmap <leader>} }zt
+nmap <leader>{ {zt
+nmap <leader>]] ]]zt
+nmap <leader>[[ [[zt
+nmap <leader><leader> zt
+
+command! Cfg :e ~/.vimrc
+
+syntax on
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""                                                                          """
+"""                  Buffer Scroll-On-Switch Configuration                   """
+"""                                                                          """
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Save current view settings on a per-window, per-buffer basis.
+function! AutoSaveWinView()
+    if !exists("w:SavedBufView")
+        let w:SavedBufView = {}
+    endif
+    let w:SavedBufView[bufnr("%")] = winsaveview()
+endfunction
+" Restore current view settings.
+function! AutoRestoreWinView()
+    let buf = bufnr("%")
+    if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
+        let v = winsaveview()
+        let atStartOfFile = v.lnum == 1 && v.col == 0
+        if atStartOfFile && !&diff
+            call winrestview(w:SavedBufView[buf])
+        endif
+        unlet w:SavedBufView[buf]
+    endif
+endfunction
+" When switching buffers, preserve window view.
+if v:version >= 700
+    autocmd BufLeave * call AutoSaveWinView()
+    autocmd BufEnter * call AutoRestoreWinView()
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""                                                                          """
+"""                            CoC Configuration                             """
+"""                                                                          """
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if &rtp =~ 'coc.nvim'
+    finish
+end
+
+set updatetime=300
+set nowritebackup
+set nobackup       " Some servers have issues with backup files, see #649.
+set cmdheight=2    " Give more space for displaying messages.
+set shortmess+=c   " Don't pass messages to |ins-completion-menu|.
+
+if has("patch-8.1.1564")
+    set signcolumn=number
+else
+    set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<c-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<c-p>" : "\<c-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings using CoCList:
+" Show all diagnostics.
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" coc-actions menu
+function! s:cocActionsOpenFromSelected(type) abort
+    execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@

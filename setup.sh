@@ -43,8 +43,7 @@ popd || exit
 rm -rf shell_profile_generator
 popd || exit
 
-VIMRC_URL=https://gist.github.com/acristoffers/544347bc4c920527f75a1612db4c689a/raw/.vimrc
-curl -L $VIMRC_URL >> ~/.vimrc
+cp dotfiles/vimrc ~/.vimrc
 
 pushd ~ || exit
 rm -rf .vim .config/nvim .local/share/nvim &> /dev/null
