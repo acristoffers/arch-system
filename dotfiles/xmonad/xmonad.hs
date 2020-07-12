@@ -375,9 +375,9 @@ myManageHook = composeAll
      -- I'm doing it this way because otherwise I would have to write out 
      -- the full name of my clickable workspaces, which would look like:
      -- doShift "<action xdotool super+8>gfx</action>"
-     [ className =? "Firefox"   --> doShift ( "\xf488 ")
+     [ className =? "firefox"   --> doShift ( "\xf488 ")
      , className =? "vlc"       --> doShift ( "\xf488 ")
-     , (className =? "Firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
 ------------------------------------------------------------------------
