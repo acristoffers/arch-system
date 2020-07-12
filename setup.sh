@@ -18,8 +18,8 @@ pushd yay || exit
 sudo pacman -S binutils fakeroot base-devel
 makepkg -si
 popd || exit
-popd || exit
 rm -rf yay
+popd || exit
 
 ################################################################################
 ###                                                                          ###
