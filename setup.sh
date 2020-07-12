@@ -83,3 +83,15 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 cp -r dotfiles/doom.d ~/.doom.d
 ~/.emacs.d/bin/doom install
 
+################################################################################
+###                                                                          ###
+###                           Xmonad and Alacritty                           ###
+###                                                                          ###
+################################################################################
+
+yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
+       alacritty firefox qalculate-gt
+
+cp -rf dotfiles/config ~/.config
+cp -rf dotfiles/xmonad ~/.xmonad
+
