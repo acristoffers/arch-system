@@ -29,6 +29,9 @@ popd || exit
 
 yay -S fish zsh bash python3 nodejs neovim vim curl which npm python-pip emacs
 
+mkdir ~/.npm-global
+npm config set prefix "$HOME/.npm-global"
+
 pip3 install neovim jedi python-language-server
 npm -g i neovim
 
