@@ -32,6 +32,9 @@ yay -S fish zsh bash python3 nodejs neovim vim curl which npm
 pip3 install neovim jedi python-language-server
 npm -g i neovim
 
+export EDIT=nvim
+export DISPLAY=:0
+
 pushd ~ || exit
 git clone https://github.com/acristoffers/shell_profile_generator
 pushd shell_profile_generator || exit
