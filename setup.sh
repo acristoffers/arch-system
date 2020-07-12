@@ -15,7 +15,7 @@ fi
 pushd ~ || exit
 git clone https://aur.archlinux.org/yay.git --depth=1
 cd yay || exit
-sudo pacman -S binutils fakeroot
+sudo pacman -S binutils fakeroot base-devel
 makepkg -si
 popd || exit
 rm -rf yay
