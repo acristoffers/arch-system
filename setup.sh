@@ -26,7 +26,7 @@ rm -rf yay
 ###                                                                          ###
 ################################################################################
 
-sudo yay -S fish zsh bash python3 nodejs neovim vim curl
+sudo yay -S fish zsh bash python3 nodejs neovim vim curl which
 
 pip3 install neovim jedi python-language-server
 npm -g i neovim
