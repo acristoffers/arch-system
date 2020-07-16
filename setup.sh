@@ -95,7 +95,7 @@ cp -r dotfiles/doom.d ~/.doom.d
 ################################################################################
 
 yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
-       alacritty firefox qalculate-gtk openssh xmonad-contrib rsync
+       alacritty firefox qalculate-gtk openssh xmonad-contrib rsync xclip
 
 mkdir -p ~/Images ~/Music ~/Documents ~/Desktop ~/Developer
 cp dotfiles/wallpaper.jpg ~/Images/wallpaper.jpg
