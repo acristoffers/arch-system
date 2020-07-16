@@ -1,83 +1,83 @@
--- The xmonad configuration of Derek Taylor (DistroTube)
--- My YouTube: http://www.youtube.com/c/DistroTube
--- My GitLab:  http://www.gitlab.com/dwt1/
--- For more information on Xmonad, visit: https://xmonad.org
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                           Alans XMonad Config                            ---
+---                           Based on DTs Config                            ---
+---                                                                          ---
+--------------------------------------------------------------------------------
 
-------------------------------------------------------------------------
--- IMPORTS
-------------------------------------------------------------------------
-    -- Base
-import XMonad
-import System.IO (hPutStrLn)
-import System.Exit (exitSuccess)
+-- Base
+import           XMonad
+import           System.IO (hPutStrLn)
+import           System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 
-    -- Actions
-import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
-import XMonad.Actions.MouseResize
-import XMonad.Actions.Promote
-import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
+-- Actions
+import           XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
+import           XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
+import           XMonad.Actions.MouseResize
+import           XMonad.Actions.Promote
+import           XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import qualified XMonad.Actions.TreeSelect as TS
-import XMonad.Actions.WindowGo (runOrRaise)
-import XMonad.Actions.WithAll (sinkAll, killAll)
+import           XMonad.Actions.WindowGo (runOrRaise)
+import           XMonad.Actions.WithAll (sinkAll, killAll)
 import qualified XMonad.Actions.Search as S
 
-    -- Data
-import Data.Char (isSpace)
-import Data.List
-import Data.Monoid
-import Data.Maybe (isJust)
-import Data.Tree
+-- Data
+import           Data.Char (isSpace)
+import           Data.List
+import           Data.Monoid
+import           Data.Maybe (isJust)
+import           Data.Tree
 import qualified Data.Map as M
 
-    -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
-import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
-import XMonad.Hooks.SetWMName
+-- Hooks
+import           XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import           XMonad.Hooks.EwmhDesktops -- for some fullscreen events, also for xcomposite in obs.
+import           XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
+import           XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+import           XMonad.Hooks.SetWMName
 
-    -- Layouts
-import XMonad.Layout.GridVariants (Grid(Grid))
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.Spiral
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
-
-    -- Layouts modifiers
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
-import XMonad.Layout.Magnifier
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Renamed (renamed, Rename(Replace))
-import XMonad.Layout.Spacing
-import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
+-- Layouts
+import           XMonad.Layout.GridVariants (Grid(Grid))
+import           XMonad.Layout.SimplestFloat
+import           XMonad.Layout.Spiral
+import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
+import           XMonad.Layout.LayoutModifier
+import           XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
+import           XMonad.Layout.Magnifier
+import           XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
+import           XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.Renamed (renamed, Rename(Replace))
+import           XMonad.Layout.Spacing
+import           XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 
-    -- Prompt
-import XMonad.Prompt
-import XMonad.Prompt.Input
-import XMonad.Prompt.Man
-import XMonad.Prompt.Pass
-import XMonad.Prompt.Shell (shellPrompt)
-import XMonad.Prompt.Ssh
-import XMonad.Prompt.XMonad
-import Control.Arrow (first)
+-- Prompt
+import           XMonad.Prompt
+import           XMonad.Prompt.Input
+import           XMonad.Prompt.Man
+import           XMonad.Prompt.Pass
+import           XMonad.Prompt.Shell (shellPrompt)
+import           XMonad.Prompt.Ssh
+import           XMonad.Prompt.XMonad
+import           Control.Arrow (first)
 
-    -- Utilities
-import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
-import XMonad.Util.SpawnOnce
+-- Utilities
+import           XMonad.Util.EZConfig (additionalKeysP)
+import           XMonad.Util.NamedScratchpad
+import           XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
+import           XMonad.Util.SpawnOnce
 
-------------------------------------------------------------------------
--- VARIABLES
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                              Look And Feel                               ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 myFont :: String
 myFont = "xft:Inconsolata Nerd Font:Regular:pixelsize=14:antialias=true:hinting=true"
 
@@ -99,30 +99,36 @@ altMask = mod1Mask         -- Setting this for use in xprompts
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
-------------------------------------------------------------------------
--- AUTOSTART
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                                Autostart                                 ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "compton &"
           spawnOnce "/usr/bin/emacs --daemon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x282A36 --height 19 &"
-          setWMName "LG3D"
+          setWMName "XMonad"
 
-------------------------------------------------------------------------
--- XPROMPT SETTINGS
-------------------------------------------------------------------------
-dtXPConfig :: XPConfig
-dtXPConfig = def
-      { font                = "xft:Inconsolata Nerd Font:Regular:pixelsize=14:antialias=true:hinting=true"
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                             XPrompt Settings                             ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
+myXPConfig :: XPConfig
+myXPConfig = def
+      { font                = myFont
       , bgColor             = "#292d3e"
       , fgColor             = "#d0d0d0"
       , bgHLight            = "#c792ea"
       , fgHLight            = "#000000"
       , borderColor         = "#535974"
       , promptBorderWidth   = 0
-      , promptKeymap        = dtXPKeymap
+      , promptKeymap        = myXPKeymap
       , position            = Top
 --    , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
       , height              = 20
@@ -138,9 +144,8 @@ dtXPConfig = def
 
 -- The same config minus the autocomplete feature which is annoying on
 -- certain Xprompts, like the search engine prompts.
-dtXPConfig' :: XPConfig
-dtXPConfig' = dtXPConfig
-      { autoComplete = Nothing }
+myXPConfig' :: XPConfig
+myXPConfig' = myXPConfig { autoComplete = Nothing }
 
 -- A list of all of the standard Xmonad prompts
 promptList :: [(String, XPConfig -> X ())]
@@ -153,24 +158,27 @@ promptList' :: [(String, XPConfig -> String -> X (), String)]
 promptList' = [ ("c", calcPrompt, "qalc")         -- requires qalculate-gtk
               ]
 ------------------------------------------------------------------------
--- CUSTOM PROMPTS
+-- Custom PROMPTS
 ------------------------------------------------------------------------
 -- calcPrompt requires a cli calculator called qalcualte-gtk.
--- You could use this as a template for other custom prompts that 
+-- You could use this as a template for other custom prompts that
 -- use command line programs that return a single line of output.
-calcPrompt :: XPConfig -> String -> X () 
+calcPrompt :: XPConfig -> String -> X ()
 calcPrompt c ans =
-    inputPrompt c (trim ans) ?+ \input -> 
-        liftIO(runProcessWithInput "qalc" [input] "") >>= calcPrompt c 
+    inputPrompt c (trim ans) ?+ \input ->
+        liftIO(runProcessWithInput "qalc" [input] "") >>= calcPrompt c
     where
         trim  = f . f
             where f = reverse . dropWhile isSpace
 
-------------------------------------------------------------------------
--- XPROMPT KEYMAP (emacs-like key bindings)
-------------------------------------------------------------------------
-dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
-dtXPKeymap = M.fromList $
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                 XPrompt keymap (emacs-like key bindings)                 ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
+myXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
+myXPKeymap = M.fromList $
      map (first $ (,) controlMask)   -- control + <key>
      [ (xK_z, killBefore)            -- kill line backwards
      , (xK_k, killAfter)             -- kill line fowards
@@ -208,9 +216,12 @@ dtXPKeymap = M.fromList $
      , (xK_Escape, quit)
      ]
 
-------------------------------------------------------------------------
--- SEARCH ENGINES
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                              Search Engines                              ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 -- Xmonad has several search engines available to use located in
 -- XMonad.Actions.Search. Additionally, you can add other search engines
 -- such as those listed below.
@@ -236,9 +247,12 @@ searchList = [ ("a", archwiki)
              , ("z", S.amazon)
              ]
 
-------------------------------------------------------------------------
--- KEYBINDINGS
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                               Keybindings                                ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 -- I am using the Xmonad.Util.EZConfig module which allows keybindings
 -- to be written in simpler, emacs-like format.
 myKeys :: [(String, X ())]
@@ -254,7 +268,7 @@ myKeys =
         , ("M-<Return>", spawn (myTerminal))
 
     -- Run Prompt
-        , ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
+        , ("M-S-<Return>", shellPrompt myXPConfig)   -- Shell Prompt
 
     -- Windows
         , ("M-S-c", kill1)                           -- Kill the currently focused client
@@ -275,7 +289,7 @@ myKeys =
         , ("M-<Backspace>", promote)         -- Moves focused window to master, others maintain order
         , ("M1-S-<Tab>", rotSlavesDown)      -- Rotate all windows except master and keep focus in place
         , ("M1-C-<Tab>", rotAllDown)         -- Rotate all the windows in the current stack
-        --, ("M-S-s", windows copyToAll)  
+        --, ("M-S-s", windows copyToAll)
         , ("M-C-s", killAllOtherCopies)
 
         -- Layouts
@@ -303,7 +317,7 @@ myKeys =
 
     -- Scratchpads
         , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
-        
+
     -- Emacs
         , ("C-e e", spawn "emacsclient -c -a ''")                           -- start emacs
         , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)'")           -- emms emacs audio player
@@ -329,26 +343,20 @@ myKeys =
         , ("<Print>", spawn "scrotd 0")
         ]
         -- Appending search engines to keybindings list
-        ++ [("M-s " ++ k, S.promptSearch dtXPConfig' f) | (k,f) <- searchList ]
+        ++ [("M-s " ++ k, S.promptSearch myXPConfig' f) | (k,f) <- searchList ]
         ++ [("M-S-s " ++ k, S.selectSearchBrowser "firefox" f) | (k,f) <- searchList ]
-        ++ [("M-p " ++ k, f dtXPConfig') | (k,f) <- promptList ]
-        ++ [("M-p " ++ k, f dtXPConfig' g) | (k,f,g) <- promptList' ]
+        ++ [("M-p " ++ k, f myXPConfig') | (k,f) <- promptList ]
+        ++ [("M-p " ++ k, f myXPConfig' g) | (k,f,g) <- promptList' ]
         -- Appending named scratchpads to keybindings list
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
-                
-------------------------------------------------------------------------
--- WORKSPACES
-------------------------------------------------------------------------
--- My workspaces are clickable meaning that the mouse can be used to switch
--- workspaces. This requires xdotool.
 
-xmobarEscape :: String -> String
-xmobarEscape = concatMap doubleLts
-  where
-        doubleLts '<' = "<<"
-        doubleLts x   = [x]
-        
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                                Workspaces                                ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 myWorkspaces :: Forest String
 myWorkspaces = [ Node "\xf488 "  [] -- a workspace for your browser
                , Node "\xf489 " [] -- for everyday activity's
@@ -360,29 +368,31 @@ myWorkspaces = [ Node "\xf488 "  [] -- a workspace for your browser
                , Node "\xf108  8"  [] -- for everyday activity's
                , Node "\xf108  9"  [] -- for everyday activity's
                ]
-------------------------------------------------------------------------
--- MANAGEHOOK
-------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                                  Hooks                                   ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 -- Sets some rules for certain programs. Examples include forcing certain
--- programs to always float, or to always appear on a certain workspace.
--- Forcing programs to a certain workspace with a doShift requires xdotool
--- if you are using clickable workspaces. You need the className or title 
--- of the program. Use xprop to get this info.
+-- programs to always float, or to always appear on a certain workspace. You
+-- need the className or title of the program. Use xprop to get this info.
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
-     -- I'm doing it this way because otherwise I would have to write out 
-     -- the full name of my clickable workspaces, which would look like:
-     -- doShift "<action xdotool super+8>gfx</action>"
      [ className =? "firefox"   --> doShift ( "\xf488 ")
      , className =? "vlc"       --> doShift ( "\xf488 ")
-     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+     -- Float Firefox Dialog
+     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
      ] <+> namedScratchpadManageHook myScratchPads
 
-------------------------------------------------------------------------
--- LAYOUTS
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                                 Layouts                                  ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 -- Makes setting the spacingRaw simpler to write. The spacingRaw
 -- module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -412,26 +422,12 @@ grid     = renamed [Replace "grid"]
            $ mySpacing 8
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
-spirals  = renamed [Replace "spirals"]
-           $ mySpacing' 8
-           $ spiral (6/7)
-threeCol = renamed [Replace "threeCol"]
-           $ limitWindows 7
-           $ mySpacing' 4
-           $ ThreeCol 1 (3/100) (1/2)
-threeRow = renamed [Replace "threeRow"]
-           $ limitWindows 7
-           $ mySpacing' 4
-           -- Mirror takes a layout and rotates it by 90 degrees.
-           -- So we are applying Mirror to the ThreeCol layout.
-           $ Mirror
-           $ ThreeCol 1 (3/100) (1/2)
 tabs     = renamed [Replace "tabs"]
            -- I cannot add spacing to this layout because it will
            -- add spacing between window and tabs which looks bad.
            $ tabbed shrinkText myTabConfig
   where
-    myTabConfig = def { fontName            = "xft:Inconsolata Nerd Font:Regular:pixelsize=14:antialias=true:hinting=true"
+    myTabConfig = def { fontName            = myFont
                       , activeColor         = "#292d3e"
                       , inactiveColor       = "#3e445e"
                       , activeBorderColor   = "#292d3e"
@@ -439,25 +435,24 @@ tabs     = renamed [Replace "tabs"]
                       , activeTextColor     = "#ffffff"
                       , inactiveTextColor   = "#d0d0d0"
                       }
-          
+
 -- The layout hook
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
-               -- I've commented out the layouts I don't use.
                myDefaultLayout =     tall
                                  ||| magnify
                                  ||| noBorders monocle
                                  ||| floats
-                                 -- ||| grid
+                                 ||| grid
                                  ||| noBorders tabs
-                                 -- ||| spirals
-                                 -- ||| threeCol
-                                 -- ||| threeRow
 
-------------------------------------------------------------------------
--- SCRATCHPADS
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                               Scratchpads                                ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm ]
   where
@@ -470,9 +465,12 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm ]
                  t = 0
                  l = 0
 
-------------------------------------------------------------------------
--- MAIN
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+---                                                                          ---
+---                                   Main                                   ---
+---                                                                          ---
+--------------------------------------------------------------------------------
+
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
@@ -482,13 +480,13 @@ main = do
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
         -- Run xmonad commands from command line with "xmonadctl command". Commands include:
         -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
-        -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run 
+        -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
         -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
         , handleEventHook    = docksEventHook
         -- , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
-        , layoutHook         = myLayoutHook 
+        , layoutHook         = myLayoutHook
         , workspaces         = TS.toWorkspaces myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
