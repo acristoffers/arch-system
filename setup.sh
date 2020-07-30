@@ -95,7 +95,9 @@ cp -r dotfiles/doom.d ~/.doom.d
 ################################################################################
 
 yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
-       alacritty firefox qalculate-gtk openssh xmonad-contrib rsync xclip
+       alacritty firefox qalculate-gtk openssh xmonad-contrib rsync xclip \
+       pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-equalizer \
+       pulseaudio-zeroconf alsa-utils paprefs pavucontrol
 
 mkdir -p ~/Images ~/Music ~/Documents ~/Desktop ~/Developer
 cp dotfiles/wallpaper.jpg ~/Images/wallpaper.jpg
@@ -103,5 +105,8 @@ rsync -a dotfiles/config/ ~/.config/
 rsync -a dotfiles/xmonad/ ~/.xmonad/
 
 sudo systemctl enable sddm
+systemctl --user enable pulseaudio
+amixer sset Master unmute
+amixer sset Master 80%
 
 echo "All done. If you changed the username, nitrogen will not work automatically. Just reconfigure it."
