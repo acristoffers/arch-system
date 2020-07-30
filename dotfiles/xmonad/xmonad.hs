@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------
+j-------------------------------------------------------------------------------
 ---                                                                          ---
 ---                           Alans XMonad Config                            ---
 ---                           Based on DTs Config                            ---
@@ -366,7 +366,7 @@ myWorkspaces = [ Node "\xf488 "  [] -- a workspace for your browser
                , Node "\xf108  6"  [] -- for everyday activity's
                , Node "\xf108  7"  [] -- for everyday activity's
                , Node "\xf108  8"  [] -- for everyday activity's
-               , Node "\xf108  9"  [] -- for everyday activity's
+               , Node "\xf6ef  9"  [] -- for everyday activity's
                ]
 
 --------------------------------------------------------------------------------
