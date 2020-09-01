@@ -8,13 +8,15 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'ParamagicDev/vim-medic_chalk'
 Plug 'SirVer/ultisnips'
+Plug 'Soares/fish.vim'
 Plug 'acristoffers/lazygit.vim', { 'branch': 'nvim-v0.4.3' }
 Plug 'acristoffers/vim-project'
 Plug 'andymass/vim-matchup'
+Plug 'andymass/vim-matlab'
 Plug 'ararslan/license-to-vim'
 Plug 'chiel92/vim-autoformat'
-Plug 'dag/vim-fish'
 Plug 'dense-analysis/ale'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'edkolev/promptline.vim'
 Plug 'honza/vim-snippets'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -33,7 +35,6 @@ Plug 'preservim/nerdtree'
 Plug 'raimondi/delimitmate'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -44,6 +45,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-latex/vim-latex'
 Plug 'wellle/targets.vim'
+
 
 call plug#end()
 
@@ -116,7 +118,7 @@ let g:formatters_typescript=['custom_ts']
 
 "" Airline
 if &rtp =~ 'vim-airline'
-    let g:airline_theme='dark'
+    let g:airline_theme='dracula'
     let g:airline_powerline_fonts=1
     let g:airline#extensions#tabline#enabled=1
     let g:airline#extensions#tabline#tab_nr_type=1
@@ -138,7 +140,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:python_host_prog='/usr/bin/python2'
 let g:python3_host_prog='/usr/bin/python3'
 
-silent! colorscheme medic_chalk
+silent! colorscheme dracula
 
 set autoindent                     " Auto-indent new lines
 set backspace=indent,eol,start     " Backspace behaviour
