@@ -47,6 +47,9 @@ popd || exit
 rm -rf shell_profile_generator
 popd || exit
 
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+fish -c "fisher add dracula/fish"
+
 cp dotfiles/vimrc ~/.vimrc
 cp dotfiles/tmux.conf ~/.tmux.conf
 
