@@ -8,8 +8,6 @@ cp -r dotfiles/config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
 cp -r dotfiles/xmonad/ ~/.xmonad
 cp -r dotfiles/config/xmobar/ ~/.config/xmobar
 
-~/.emacs.d/bin/doom -y sync
-~/.emacs.d/bin/doom -y upgrade
 nvim --headless +PlugUpgrade +qa
 nvim --headless +PlugUpdate +qa
 nvim --headless +CocUpdateSync +qa
@@ -24,3 +22,5 @@ nvim ~/.promptline.sh -c 'argdo /truncation' \
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 fish -c "fisher add dracula/fish"
 
+~/.emacs.d/bin/doom -y sync
+~/.emacs.d/bin/doom -y upgrade
