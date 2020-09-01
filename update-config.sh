@@ -13,6 +13,8 @@ cp -r dotfiles/config/xmobar/ ~/.config/xmobar
 nvim --headless +PlugUpgrade +qa
 nvim --headless +PlugUpdate +qa
 nvim --headless +CocUpdateSync +qa
+nvim --headless +'PromptlineSnapshot! ~/.promptline.sh airline' +qa
 
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 fish -c "fisher add dracula/fish"
+
