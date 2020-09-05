@@ -118,6 +118,7 @@
 ;; formats the buffer before saving
 (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
+(add-hook 'TeX-mode-hook #'prettify-symbols-mode)
 
 (map! :leader
       :desc "Format code"
@@ -126,3 +127,7 @@
 (map! :leader
       :desc "Spell action menu"
       "z =" #'flyspell-correct-word-before-point)
+
+(map! :leader
+      :desc "Clears search highligh"
+      "s c" #'evil-ex-nohighlight)
