@@ -1,8 +1,7 @@
 # Arch system
 
-Simply a script to regenerate my Arch installation. It is meant to be run after
-you install and boot your system (and probably setup network, as networking is
-required).
+A script to finish setting up my Arch installation. Run it after you installed
+the base system and have a working network connection.
 
 First, edit and run `create_user.sh` if you have not created your user.
 
