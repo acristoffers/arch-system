@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-rm -r ~/.doom.d ~/.xmonad ~/.config/xmobar
+rm -r ~/.doom.d ~/.config/xmobar
 cp -r dotfiles/doom.d/ ~/.doom.d
 cp -r dotfiles/vimrc ~/.vimrc
 cp -r dotfiles/tmux.conf ~/.tmux.conf
 cp -r dotfiles/config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
-cp -r dotfiles/xmonad/ ~/.xmonad
 cp -r dotfiles/config/xmobar/ ~/.config/xmobar
+
+if [ -f "~/.xmonad/xmonad.hs" ]; then
+  cp dotfiles/xmonad/xmonad.hs ~/.xmonad/xmonad.hs
+else
+  cp dotfiles/xmonad/xmonad.hs ~/.xmonad/config.hs
+fi
 
 nvim --headless +PlugUpgrade +qa
 nvim --headless +PlugUpdate +qa
