@@ -119,6 +119,7 @@
 (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 (add-hook 'TeX-mode-hook #'prettify-symbols-mode)
+(add-hook 'text-mode-hook #'auto-fill-mode)
 
 (map! :leader
       :desc "Format code"
