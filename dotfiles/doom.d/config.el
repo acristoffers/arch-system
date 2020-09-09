@@ -3,7 +3,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Álan Crístoffer e Sousa"
@@ -51,53 +50,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#1c1c1c" "#D16969" "#579C4C" "#D7BA7D" "#339CDB" "#C586C0" "#85DDFF" "#d4d4d4"])
- '(custom-safe-themes
-   (quote
-    ("9efb2d10bfb38fe7cd4586afb3e644d082cbcdb7435f3d1e8dd9413cbe5e61fc" "99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "912cac216b96560654f4f15a3a4d8ba47d9c604cbc3b04801e465fb67a0234f0" default)))
- '(fci-rule-color "#37474F")
- '(jdee-db-active-breakpoint-face-colors (cons "#171F24" "#237AD3"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#171F24" "#579C4C"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#171F24" "#777778"))
- '(objed-cursor-color "#D16969")
- '(org-agenda-files (quote ("~/test.org")))
- '(pdf-view-midnight-colors (cons "#d4d4d4" "#1e1e1e"))
- '(rustic-ansi-faces
-   ["#1e1e1e" "#D16969" "#579C4C" "#D7BA7D" "#339CDB" "#C586C0" "#85DDFF" "#d4d4d4"])
- '(vc-annotate-background "#1e1e1e")
- '(vc-annotate-color-map
-   (list
-    (cons 20 "#579C4C")
-    (cons 40 "#81a65c")
-    (cons 60 "#acb06c")
-    (cons 80 "#D7BA7D")
-    (cons 100 "#d8ab79")
-    (cons 120 "#d99c76")
-    (cons 140 "#DB8E73")
-    (cons 160 "#d38b8c")
-    (cons 180 "#cc88a6")
-    (cons 200 "#C586C0")
-    (cons 220 "#c97ca3")
-    (cons 240 "#cd7286")
-    (cons 260 "#D16969")
-    (cons 280 "#ba6c6c")
-    (cons 300 "#a37070")
-    (cons 320 "#8d7374")
-    (cons 340 "#37474F")
-    (cons 360 "#37474F")))
- '(vc-annotate-very-old-color nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 (setq! lsp-clients-clangd-executable "/Users/Alan/.config/coc/extensions/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd")
 (setq! lsp-clients-kotlin-server-executable "/Users/Alan/.config/coc/extensions/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
@@ -113,13 +65,16 @@
   ;; install it separately via package-install
   ;; `M-x package-install [ret] company`
   (company-mode +1))
+
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
+
 ;; formats the buffer before saving
 (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 (add-hook 'TeX-mode-hook #'prettify-symbols-mode)
 (add-hook 'text-mode-hook #'auto-fill-mode)
+(add-hook 'python-mode-hook (lambda () (format-all-mode -1)))
 
 (map! :leader
       :desc "Format code"
@@ -130,5 +85,24 @@
       "z =" #'flyspell-correct-word-before-point)
 
 (map! :leader
-      :desc "Clears search highligh"
+      :desc "Clears search highlight"
       "s c" #'evil-ex-nohighlight)
+
+(set-frame-position (selected-frame) 583 0)
+(set-frame-size (selected-frame) 119 62)
+
+(setenv "DICTIONARY" "en")
+(setenv "LANG" "en")
+(after! ispell
+  (let ((dictionaries (string-join (list "en" "en_GB" "en_CA" "pt" "pt_PT" "de"
+                                         "fr" "it" "ru")
+                                   ",")))
+    (setq ispell-dictionary dictionaries)
+    (ispell-set-spellchecker-params)
+    (ispell-hunspell-add-multi-dic dictionaries)
+    (setq ispell-personal-dictionary "~/.hunspell_personal")
+    (setq flyspell-lazy-idle-seconds 10)
+    (unless (file-exists-p ispell-personal-dictionary)
+      (write-region "" nil ispell-personal-dictionary nil 0))))
+
+(after! doom-modeline (display-time))
