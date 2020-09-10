@@ -42,6 +42,7 @@ import           XMonad.Layout.GridVariants (Grid(Grid))
 import           XMonad.Layout.SimplestFloat
 import           XMonad.Layout.Spiral
 import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Reflect
 import           XMonad.Layout.Tabbed
 import           XMonad.Layout.ThreeColumns
 import           XMonad.Layout.LayoutModifier
@@ -407,7 +408,7 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 tall     = renamed [Replace "tall"]
            $ limitWindows 12
            $ mySpacing 4
-           $ ResizableTall 1 (3/100) (1/2) []
+           $ reflectHoriz $ ResizableTall 1 (3/100) (1/2) []
 magnify  = renamed [Replace "magnify"]
            $ magnifier
            $ limitWindows 12
