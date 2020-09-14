@@ -91,6 +91,15 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 cp -r dotfiles/doom.d ~/.doom.d
 ~/.emacs.d/bin/doom install
 
+# GO111MODULE=on go get golang.org/x/tools/gopls@latest
+# go get -u github.com/nsf/gocode
+# go get github.com/fatih/gomodifytags
+# go get -u github.com/cweill/gotests/...
+# go get -u github.com/motemen/gore/cmd/gore
+# go get   golang.org/x/tools/cmd/guru
+# go build golang.org/x/tools/cmd/guru
+# mv guru "$(go env GOROOT)/bin"
+
 ################################################################################
 ###                                                                          ###
 ###                           Xmonad and Alacritty                           ###
