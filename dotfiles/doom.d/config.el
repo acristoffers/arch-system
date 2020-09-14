@@ -77,6 +77,11 @@
 (add-hook 'python-mode-hook (lambda () (format-all-mode -1)))
 
 (map! :leader
+      :after evil-org
+      :map evil-org-mode-map
+      :n "m X" #'org-babel-execute-src-block)
+
+(map! :leader
       :desc "Format code"
       "g =" #'lsp-format-buffer)
 
@@ -90,6 +95,13 @@
 
 (set-frame-position (selected-frame) 583 0)
 (set-frame-size (selected-frame) 119 62)
+
+(setq +format-on-save-enabled-modes
+      '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
+            sql-mode         ; sqlformat is currently broken
+            tex-mode         ; latexindent is broken
+            latex-mode
+            python-mode))
 
 (setenv "DICTIONARY" "en")
 (setenv "LANG" "en")
@@ -106,3 +118,29 @@
       (write-region "" nil ispell-personal-dictionary nil 0))))
 
 (after! doom-modeline (display-time))
+
+(defun matlab-to-python ()
+  (interactive)
+  (backward-up-list)
+  (mark-sexp)
+  (if (use-region-p)
+      (let* ((numpy (->> (buffer-substring (region-beginning) (region-end))
+                         (s-replace "[" "")
+                         (s-replace "]" ";")
+                         (s-replace-regexp "[ ;]*;[ ;]*" ";")
+                         (s-replace-regexp ";$" "")
+                         (s-replace " " ",")
+                         (s-replace-regexp ",+" ",")
+                         (s-replace ";" "],[")
+                         (s-replace-regexp "^," "")
+                         (s-replace "," ", ")
+                         )))
+        (replace-region-contents
+         (region-beginning)
+         (region-end)
+         (lambda () (concat "np.array([[" numpy "]])"))))))
+
+(map! :leader
+      :desc "Turns MATLAB array into NumPy array"
+      "m p"
+      #'matlab-to-python)
