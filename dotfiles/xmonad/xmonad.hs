@@ -110,6 +110,7 @@ myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "compton &"
+          spawnOnce "klipper&"
           spawnOnce "/usr/bin/emacs --daemon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x282A36 --height 19 &"
           setWMName "XMonad"
@@ -305,8 +306,8 @@ myKeys =
         , ("M-S-<KP_Multiply>", increaseLimit)              -- Increase number of windows
         , ("M-S-<KP_Divide>", decreaseLimit)                -- Decrease number of windows
 
-        , ("M-h", sendMessage Shrink)                       -- Shrink horiz window width
-        , ("M-l", sendMessage Expand)                       -- Expand horiz window width
+        , ("M-l", sendMessage Shrink)                       -- Shrink horiz window width
+        , ("M-h", sendMessage Expand)                       -- Expand horiz window width
         , ("M-C-j", sendMessage MirrorShrink)               -- Shrink vert window width
         , ("M-C-k", sendMessage MirrorExpand)               -- Exoand vert window width
 
@@ -320,14 +321,14 @@ myKeys =
         , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
 
     -- Emacs
-        , ("C-e e", spawn "emacsclient -c -a ''")                           -- start emacs
-        , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)'")           -- emms emacs audio player
-        , ("C-e b", spawn "emacsclient -c -a '' --eval '(ibuffer)'")        -- list emacs buffers
-        , ("C-e d", spawn "emacsclient -c -a '' --eval '(dired nil)'")      -- dired emacs file manager
-        , ("C-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")           -- mu4e emacs email client
-        , ("C-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")         -- elfeed emacs rss client
-        , ("C-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")         -- eshell within emacs
-        , ("C-e t", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'")         -- eshell within emacs
+        , ("M-e e", spawn "emacsclient -c -a ''")                           -- start emacs
+        , ("M-e a", spawn "emacsclient -c -a '' --eval '(emms)'")           -- emms emacs audio player
+        , ("M-e b", spawn "emacsclient -c -a '' --eval '(ibuffer)'")        -- list emacs buffers
+        , ("M-e d", spawn "emacsclient -c -a '' --eval '(dired nil)'")      -- dired emacs file manager
+        , ("M-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")           -- mu4e emacs email client
+        , ("M-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")         -- elfeed emacs rss client
+        , ("M-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")         -- eshell within emacs
+        , ("M-e t", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'")         -- eshell within emacs
 
     -- Multimedia Keys
         , ("<XF86AudioPlay>", spawn "cmus toggle")
@@ -408,7 +409,7 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 tall     = renamed [Replace "tall"]
            $ limitWindows 12
            $ mySpacing 4
-           $ reflectHoriz $ ResizableTall 1 (3/100) (1/2) []
+           $ reflectHoriz $ ResizableTall 1 (3/100) (2/3) []
 magnify  = renamed [Replace "magnify"]
            $ magnifier
            $ limitWindows 12
