@@ -144,3 +144,12 @@
       :desc "Turns MATLAB array into NumPy array"
       "m p"
       #'matlab-to-python)
+
+(after! projectile
+  (projectile-register-project-type 'latex '("latexmkrc")
+                                    :compilation-dir "."
+                                    :project-file "latexmkrc"
+                                    :compile "latexmk"))
+
+(after! lsp
+  (setq lsp-enable-symbol-highlighting nil))

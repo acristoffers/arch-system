@@ -40,8 +40,8 @@
        ophints               ; highlight the region an operation acts on
        (popup +defaults)     ; tame sudden yet inevitable temporary windows
        ;;pretty-code         ; ligatures or substitute text with pretty symbols
-       ;;tabs                ; an tab bar for Emacs
-       ;;treemacs            ; a project drawer, like neotree but cooler
+       tabs                  ; an tab bar for Emacs
+       treemacs              ; a project drawer, like neotree but cooler
        unicode               ; extended unicode support for various languages
        vc-gutter             ; vcs diff in the fringe
        vi-tilde-fringe       ; fringe tildes to mark beyond EOB
@@ -66,7 +66,7 @@
        :emacs
        dired                 ; making dired pretty [functional]
        electric              ; smarter, keyword-based electric-indent
-       ;;ibuffer             ; interactive buffer management
+       (ibuffer +icons)      ; interactive buffer management
        undo                  ; persistent, smarter undo for your inevitable mistakes
        vc                    ; version-control and Emacs, sitting in a tree
 
@@ -99,7 +99,7 @@
        ;;pass                ; password manager for nerds
        pdf                   ; pdf enhancements
        ;;prodigy             ; FIXME managing external services & code builders
-       ;;rgb                 ; creating color strings
+       rgb                   ; creating color strings
        ;;taskrunner          ; taskrunner for all your projects
        ;;terraform           ; infrastructure as code
        tmux                  ; an API for interacting with tmux
@@ -119,7 +119,7 @@
        data                  ; config/data formats
        (dart +flutter +lsp)  ; paint ui and not much else
        (elixir +lsp)         ; erlang done right
-       ;;elm                 ; care for a cup of TEA?
+       (elm +lsp)            ; care for a cup of TEA?
        emacs-lisp            ; drown in parentheses
        (erlang +lsp)         ; an elegant language for a more civilized age
        ;;ess                 ; emacs speaks statistics
@@ -173,7 +173,7 @@
        ;;(wanderlust +gmail)
 
        :app
-       ;;calendar
+       calendar
        ;;irc                 ; how neckbeards socialize
        ;;(rss +org)          ; emacs as an RSS reader
        ;;twitter             ; twitter client https://twitter.com/vnought
