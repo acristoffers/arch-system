@@ -95,7 +95,7 @@ myFocusColor :: String
 myFocusColor  = "#bbc5ff"  -- Border color of focused windows
 
 altMask :: KeyMask
-altMask = mod1Mask         -- Setting this for use in xprompts
+altMask = mod4Mask         -- Setting this for use in xprompts
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -485,7 +485,7 @@ main = do
         -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
         -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
         , handleEventHook    = docksEventHook
-        -- , modMask            = myModMask
+        , modMask            = altMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
         , layoutHook         = myLayoutHook
