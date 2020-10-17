@@ -46,7 +46,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-latex/vim-latex'
 Plug 'wellle/targets.vim'
 
-
 call plug#end()
 
 filetype plugin indent on " required
@@ -96,7 +95,8 @@ if &rtp =~ 'vim-airline'
     let g:ale_fixers = {
                 \ 'javascript': ['eslint'],
                 \ 'typescript': ['eslint'],
-                \ 'r': 'styler'
+                \ 'r': 'styler',
+                \ 'html': 'prettier'
                 \ }
 end
 
@@ -118,6 +118,7 @@ let g:formatters_typescript=['custom_ts']
 
 "" Airline
 if &rtp =~ 'vim-airline'
+    autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
     let g:airline_theme='dracula'
     let g:airline_powerline_fonts=1
     let g:airline#extensions#tabline#enabled=1
@@ -137,13 +138,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 """                                                                          """
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:python_host_prog='/usr/bin/python2'
-let g:python3_host_prog='/usr/bin/python3'
+let g:python_host_prog='/usr/local/bin/python2'
+let g:python3_host_prog='/usr/local/bin/python3'
 
 silent! colorscheme dracula
 
 set autoindent                     " Auto-indent new lines
-set backspace=indent,eol,start     " Backspace behaviour
+set backspace=indent,eol,start     " Backspace behavior
 set clipboard=unnamedplus          " Use the system clipboard for copy/paste
 set encoding=UTF-8                 " Not needed in NeoVim, only in ViM
 set expandtab                      " Use spaces instead of tabs
@@ -176,7 +177,10 @@ set wildmenu                       " Shows menu with all options on tab complete
 
 autocmd FileType fish compiler fish
 autocmd FileType fish setlocal textwidth=80
+autocmd FileType fish set foldmethod=expr
 autocmd FileType python set foldmethod=indent
+autocmd FileType vue set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType typescript set tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType tex imap ( (<++>)<++><c-j>
 autocmd FileType tex imap [ [<++>]<++><c-j>
 autocmd FileType tex imap { {<++>}<++><c-j>
@@ -252,7 +256,7 @@ endif
 """                            CoC Configuration                             """
 """                                                                          """
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if &rtp =~ 'coc.nvim'
+if &rtp !~ 'coc.nvim'
     finish
 end
 
