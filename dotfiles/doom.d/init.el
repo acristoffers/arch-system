@@ -78,9 +78,9 @@
 
        :checkers
        syntax                ; tasing you for every semicolon you forget
-       (spell
-        +flyspell
-        +hunspell)           ; tasing you for misspelling mispelling
+       ;; (spell
+       ;;  +flyspell
+       ;;  +hunspell)           ; tasing you for misspelling mispelling
        grammar               ; tasing grammar mistake every you make
 
        :tools
@@ -106,7 +106,7 @@
        ;;upload              ; map local to remote projects via ssh/ftp
 
        :os
-       macos                 ; MacOS-specific commands
+       linux                 ; Linux-specific commands
 
        :lang
        ;;agda                ; types of types of types of types...

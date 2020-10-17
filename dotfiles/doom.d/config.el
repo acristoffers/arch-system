@@ -103,23 +103,24 @@
             latex-mode
             python-mode))
 
-(setenv "DICTIONARY" "en")
-(setenv "LANG" "en")
-(after! ispell
-  (let ((dictionaries (string-join (list "en" "en_GB" "en_CA" "pt" "pt_PT" "de"
-                                         "fr" "it" "ru")
-                                   ",")))
-    (setq ispell-dictionary dictionaries)
-    (ispell-set-spellchecker-params)
-    (ispell-hunspell-add-multi-dic dictionaries)
-    (setq ispell-personal-dictionary "~/.hunspell_personal")
-    (setq flyspell-lazy-idle-seconds 10)
-    (unless (file-exists-p ispell-personal-dictionary)
-      (write-region "" nil ispell-personal-dictionary nil 0))))
+;; (setenv "DICTIONARY" "en")
+;; (setenv "LANG" "en")
+;; (after! ispell
+;;   (let ((dictionaries (string-join (list "en" "en_GB" "en_CA" "pt" "pt_PT" "de"
+;;                                          "fr" "it" "ru")
+;;                                    ",")))
+;;     (setq ispell-dictionary dictionaries)
+;;     (ispell-set-spellchecker-params)
+;;     (ispell-hunspell-add-multi-dic dictionaries)
+;;     (setq ispell-personal-dictionary "~/.hunspell_personal")
+;;     (setq flyspell-lazy-idle-seconds 10)
+;;     (unless (file-exists-p ispell-personal-dictionary)
+;;       (write-region "" nil ispell-personal-dictionary nil 0))))
 
 (after! doom-modeline (display-time))
 
 (defun matlab-to-python ()
+  "Turns [0 1; 1 0] into np.array([[0, 1], [1, 0]])"
   (interactive)
   (backward-up-list)
   (mark-sexp)
