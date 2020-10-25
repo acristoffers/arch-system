@@ -5,7 +5,6 @@
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
 
-
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 (package! tide)
 (package! vue-mode)
@@ -16,6 +15,12 @@
 ;; https://github.com/raxod502/straight.el#the-recipe-format
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
+(package! lsp-julia :recipe (:host github :repo "non-jedi/lsp-julia"))
+(package! julia-formatter
+  :recipe (
+           :host github
+           :repo "ki-chi/julia-formatter"
+           :files ("julia-formatter.el" "scripts/server.el")))
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify

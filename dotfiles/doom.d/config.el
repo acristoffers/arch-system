@@ -32,7 +32,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'visual)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -50,6 +50,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(use-package! julia-formatter)
 
 (setq! lsp-clients-clangd-executable "/Users/Alan/.config/coc/extensions/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd")
 (setq! lsp-clients-kotlin-server-executable "/Users/Alan/.config/coc/extensions/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
@@ -75,6 +77,7 @@
 (add-hook 'TeX-mode-hook #'prettify-symbols-mode)
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'python-mode-hook (lambda () (format-all-mode -1)))
+(add-hook 'julia-mode-hook (lambda() (julia-formatter-server-start)))
 
 (map! :leader
       :after evil-org
@@ -154,3 +157,9 @@
 
 (after! lsp
   (setq lsp-enable-symbol-highlighting nil))
+
+(setq lsp-julia-default-environment "~/.julia/environments/v1.5")
+(setq lsp-julia-package-dir nil)
+
+(setq lsp-enable-folding t)
+(setq lsp-folding-range-limit 100)
