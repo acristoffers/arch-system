@@ -77,7 +77,7 @@
 (add-hook 'TeX-mode-hook #'prettify-symbols-mode)
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'python-mode-hook (lambda () (format-all-mode -1)))
-(add-hook 'julia-mode-hook (lambda() (julia-formatter-server-start)))
+(add-hook 'julia-mode-hook #'julia-formatter-server-start)
 
 (map! :leader
       :after evil-org
@@ -155,11 +155,20 @@
                                     :project-file "latexmkrc"
                                     :compile "latexmk"))
 
-(after! lsp
-  (setq lsp-enable-symbol-highlighting nil))
+(after! lsp (setq lsp-enable-symbol-highlighting nil))
 
 (setq lsp-julia-default-environment "~/.julia/environments/v1.5")
 (setq lsp-julia-package-dir nil)
 
 (setq lsp-enable-folding t)
 (setq lsp-folding-range-limit 100)
+
+;; In Julia, run
+;; ] add https://github.com/julia-vscode/LanguageServer.jl
+
+;; Make evil-mode up/down operate in screen lines instead of logical lines
+(define-key evil-motion-state-map "j" 'evil-next-visual-line)
+(define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+;; Also in visual mode
+(define-key evil-visual-state-map "j" 'evil-next-visual-line)
+(define-key evil-visual-state-map "k" 'evil-previous-visual-line)
