@@ -172,3 +172,6 @@
 ;; Also in visual mode
 (define-key evil-visual-state-map "j" 'evil-next-visual-line)
 (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+
+;; Inline images in EIN
+(setq ein:output-area-inlined-images t)
