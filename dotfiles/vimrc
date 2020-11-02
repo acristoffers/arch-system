@@ -201,12 +201,12 @@ if exists('+colorcolumn')
 endif
 
 nnoremap <silent> <expr> x ':b' . v:count . '<CR>'
-nnoremap <silent> <expr> zz ':\|bd ' . (v:count ? v:count : '') . '<CR>'
+nnoremap <silent> <expr> <leader>bd ':\|bd ' . (v:count ? v:count : '') . '<CR>'
 nnoremap <silent> <leader>g :LazyGit<CR>
 nnoremap <silent> <leader>l :ALELint<CR>
 nnoremap <silent> <leader>n :NERDTreeCWD<CR>
 nnoremap <silent> <leader>o :Files<CR>
-nnoremap <leader>s :w<CR>
+nnoremap <leader>fs :w<CR>
 nnoremap g= :Autoformat<CR>
 nmap <C-A> <A-n>
 vmap <C-A> <A-n>
