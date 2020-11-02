@@ -6,7 +6,6 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'ParamagicDev/vim-medic_chalk'
 Plug 'SirVer/ultisnips'
 Plug 'Soares/fish.vim'
 Plug 'acristoffers/lazygit.vim', { 'branch': 'nvim-v0.4.3' }
@@ -24,6 +23,7 @@ Plug 'jceb/vim-orgmode'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'lervag/vimtex'
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-startify'
@@ -132,6 +132,10 @@ end
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+"" EasyAlign
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """                                                                          """
