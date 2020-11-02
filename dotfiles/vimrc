@@ -90,10 +90,10 @@ end
 
 "" ALE
 if &rtp =~ 'vim-airline'
-    let g:airline#extensions#ale#enabled=1
-    let g:ale_set_quickfix=1
-    let g:ale_fix_on_save=1
-    let g:ale_fixers = {
+    let g:airline#extensions#ale#enabled = 1
+    let g:ale_set_quickfix               = 1
+    let g:ale_fix_on_save                = 1
+    let g:ale_fixers                     = {
                 \ 'javascript': ['eslint'],
                 \ 'typescript': ['eslint'],
                 \ 'r': 'styler',
@@ -102,36 +102,36 @@ if &rtp =~ 'vim-airline'
 end
 
 "" LaTeX Suite
-let g:tex_flavor="latex"
+let g:tex_flavor = "latex"
 
 "" NERDTree
-let NERDTreeQuitOnOpen=1
+let NERDTreeQuitOnOpen = 1
 
 "" Autoformat
-let g:formatdef_custom_c='"uncrustify -q -l C -c /Users/Alan/bin/cstyle.cfg"'
-let g:formatdef_custom_cpp='"uncrustify -q -l CPP -c /Users/Alan/bin/cstyle.cfg"'
-let g:formatdef_custom_js='"js-beautify"'
-let g:formatdef_custom_ts='"eslint --fix "'
-let g:formatters_c=['custom_c']
-let g:formatters_cpp=['custom_cpp']
-let g:formatters_javascript=['custom_js']
-let g:formatters_typescript=['custom_ts']
+let g:formatdef_custom_c    = '"uncrustify -q -l C -c /Users/Alan/bin/cstyle.cfg"'
+let g:formatdef_custom_cpp  = '"uncrustify -q -l CPP -c /Users/Alan/bin/cstyle.cfg"'
+let g:formatdef_custom_js   = '"js-beautify"'
+let g:formatdef_custom_ts   = '"eslint --fix "'
+let g:formatters_c          = ['custom_c']
+let g:formatters_cpp        = ['custom_cpp']
+let g:formatters_javascript = ['custom_js']
+let g:formatters_typescript = ['custom_ts']
 
 "" Airline
 if &rtp =~ 'vim-airline'
     autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-    let g:airline_theme='dracula'
-    let g:airline_powerline_fonts=1
-    let g:airline#extensions#tabline#enabled=1
-    let g:airline#extensions#tabline#tab_nr_type=1
-    let g:airline#extensions#tabline#buffer_nr_show=1
-    let g:airline#extensions#tabline#fnamemod=':~:.:t'
+    let g:airline_theme                             = 'dracula'
+    let g:airline_powerline_fonts                   = 1
+    let g:airline#extensions#tabline#enabled        = 1
+    let g:airline#extensions#tabline#tab_nr_type    = 1
+    let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline#extensions#tabline#fnamemod       = ':~:.:t'
 end
 
 "" Snippets
-let g:UltiSnipsExpandTrigger="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger       = "<c-l>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
 "" EasyAlign
 xmap ga <Plug>(EasyAlign)
@@ -143,45 +143,45 @@ nmap ga <Plug>(EasyAlign)
 """                                                                          """
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:python_host_prog='/usr/local/bin/python2'
-let g:python3_host_prog='/usr/local/bin/python3'
+let g:python_host_prog  = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 silent! colorscheme dracula
 
-set autoindent                     " Auto-indent new lines
-set backspace=indent,eol,start     " Backspace behavior
-set clipboard=unnamedplus          " Use the system clipboard for copy/paste
-set encoding=UTF-8                 " Not needed in NeoVim, only in ViM
-set expandtab                      " Use spaces instead of tabs
-set hidden                         " Allows to change buffers with unsaved state
-set hlsearch                       " Highlight all search results
-set ignorecase                     " Always case-insensitive
-set incsearch                      " Searches for strings incrementally
-set linebreak                      " Break lines at word (requires Wrap lines)
+set autoindent                           " Auto-indent new lines
+set backspace=indent,eol,start           " Backspace behavior
+set clipboard=unnamedplus                " Use the system clipboard for copy/paste
+set encoding=UTF-8                       " Not needed in NeoVim, only in ViM
+set expandtab                            " Use spaces instead of tabs
+set hidden                               " Allows to change buffers with unsaved state
+set hlsearch                             " Highlight all search results
+set ignorecase                           " Always case-insensitive
+set incsearch                            " Searches for strings incrementally
+set linebreak                            " Break lines at word (requires Wrap lines)
 set list listchars=tab:>\ ,trail:-,eol:$ " makes list show newlines
-set mouse=a                        " Mouse integration
-set nofoldenable                   " Disable folding
-set nolist                         " disable show hidden chars
-set nospell                        " Spell checking off (set nospell to turn on)
-set number                         " Show line numbers
-set number relativenumber          " enables relative line numbers
-set ruler                          " Show row and column ruler information
-set shiftwidth=4                   " Number of auto-indent spaces
-set showbreak=+++                  " Wrap-broken line prefix
-set showmatch                      " Highlight matching brace
-set smartcase                      " Enable smart-case search
-set smartindent                    " Enable smart-indent
-set smarttab                       " Enable smart-tabs
-set softtabstop=4                  " Number of spaces per Tab
-set spelllang=en,pt_br,fr,de,it,ru " Enabled spellcheck languages
-set tabstop=4                      " Size of tabs
-set textwidth=80                   " Line wrap (number of cols)
-set undolevels=1000                " Number of undo levels
-set visualbell                     " Use visual bell (no beeping)
-set wildmenu                       " Shows menu with all options on tab complete
+set mouse=a                              " Mouse integration
+set nofoldenable                         " Disable folding
+set nolist                               " disable show hidden chars
+set nospell                              " Spell checking off (set nospell to turn on)
+set number                               " Show line numbers
+set number relativenumber                " enables relative line numbers
+set ruler                                " Show row and column ruler information
+set shiftwidth=4                         " Number of auto-indent spaces
+set showbreak=+++                        " Wrap-broken line prefix
+set showmatch                            " Highlight matching brace
+set smartcase                            " Enable smart-case search
+set smartindent                          " Enable smart-indent
+set smarttab                             " Enable smart-tabs
+set softtabstop=4                        " Number of spaces per Tab
+set spelllang=en,pt_br,fr,de,it,ru       " Enabled spellcheck languages
+set tabstop=4                            " Size of tabs
+set textwidth=100                        " Line wrap (number of cols)
+set undolevels=1000                      " Number of undo levels
+set visualbell                           " Use visual bell (no beeping)
+set wildmenu                             " Shows menu with all options on tab complete
 
 autocmd FileType fish compiler fish
-autocmd FileType fish setlocal textwidth=80
+autocmd FileType fish setlocal textwidth=100
 autocmd FileType fish set foldmethod=expr
 autocmd FileType python set foldmethod=indent
 autocmd FileType vue set tabstop=2 softtabstop=2 shiftwidth=2
@@ -211,6 +211,8 @@ nnoremap <silent> <leader>l :ALELint<CR>
 nnoremap <silent> <leader>n :NERDTreeCWD<CR>
 nnoremap <silent> <leader>o :Files<CR>
 nnoremap <leader>fs :w<CR>
+nnoremap <leader>sc :noh<CR>
+nnoremap <leader>q :q<CR>
 nnoremap g= :Autoformat<CR>
 nmap <C-A> <A-n>
 vmap <C-A> <A-n>
