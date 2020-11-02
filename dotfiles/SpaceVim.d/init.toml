@@ -1,0 +1,302 @@
+#=============================================================================
+# dark_powered.toml --- dark powered configuration example for SpaceVim
+# Copyright (c) 2016-2020 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg at 163.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+# All SpaceVim option below [option] section
+[options]
+  # set spacevim theme. by default colorscheme layer is not loaded,
+  # if you want to use more colorscheme, please load the colorscheme
+  # layer
+  colorscheme = "one"
+  colorscheme_bg = "dark"
+  # Disable guicolors in basic mode, many terminal do not support 24bit
+  # true colors
+  enable_guicolors = true
+  # Disable statusline separator, if you want to use other value, please
+  # install nerd fonts
+  statusline_separator = "arrow"
+  statusline_iseparator = "arrow"
+  buffer_index_type = 4
+  enable_tabline_filetype_icon = true
+  enable_statusline_mode = false
+  # To run commands before and after initializaton
+  bootstrap_before = 'custom#before'
+  bootstrap_after = 'custom#after'
+  # autocomplete layer
+  autocomplete_method = "coc"
+  snippet_engine = "neosnippet"
+  autocomplete_parens = true
+  # edit layer
+  textobj = ["indent", "line", "entire"]
+
+
+# Enable autocomplete layer
+[[layers]]
+name = 'autocomplete'
+auto_completion_return_key_behavior = "smart"
+auto_completion_tab_key_behavior = "smart"
+auto_completion_delay = 50
+auto_completion_complete_with_key_sequence = "nil"
+auto_completion_complete_with_key_sequence_delay = 0.1
+auto_completion_enable_snippets_in_popup = true
+
+[[layers]]
+  name = "checkers"
+  show_cursor_error = true
+  enable_neomake = false
+  enable_ale = true
+  lint_on_the_fly = true
+
+[[layers]]
+  name = "colorscheme"
+
+[[layers]]
+  name = "edit"
+
+[[layers]]
+  name = "format"
+  format_on_save = true
+
+[[layers]]
+  name = "denite"
+
+[[layers]]
+  name = "git"
+  git-plugin ="fugitive"
+
+[[layers]]
+  name = "github"
+
+[[layers]]
+  name = "lang#WebAssembly"
+
+[[layers]]
+  name = "lang#assembly"
+  
+[[layers]]
+  name = "lang#c"
+  
+[[layers]]
+  name = "lang#clojure"
+  
+[[layers]]
+  name = "lang#coffeescript"
+  
+[[layers]]
+  name = "lang#csharp"
+  
+[[layers]]
+  name = "lang#dart"
+  
+[[layers]]
+  name = "lang#dockerfile"
+  
+[[layers]]
+  name = "lang#elixir"
+  
+[[layers]]
+  name = "lang#elm"
+  
+[[layers]]
+  name = "lang#erlang"
+  
+[[layers]]
+  name = "lang#fortran"
+  
+[[layers]]
+  name = "lang#fsharp"
+  
+[[layers]]
+  name = "lang#go"
+  
+[[layers]]
+  name = "lang#graphql"
+  
+[[layers]]
+  name = "lang#haskell"
+  
+[[layers]]
+  name = "lang#html"
+  
+[[layers]]
+  name = "lang#ipynb"
+  
+[[layers]]
+  name = "lang#java"
+  
+[[layers]]
+  name = "lang#javascript"
+  
+[[layers]]
+  name = "lang#julia"
+  
+[[layers]]
+  name = "lang#kotlin"
+  
+[[layers]]
+  name = "lang#latex"
+  
+[[layers]]
+  name = "lang#lisp"
+  
+[[layers]]
+  name = "lang#lua"
+  
+[[layers]]
+  name = "lang#markdown"
+  
+[[layers]]
+  name = "lang#matlab"
+  
+[[layers]]
+  name = "lang#nim"
+  
+[[layers]]
+  name = "lang#nix"
+  
+[[layers]]
+  name = "lang#ocaml"
+  
+[[layers]]
+  name = "lang#pascal"
+  
+[[layers]]
+  name = "lang#perl"
+  
+[[layers]]
+  name = "lang#python"
+  
+[[layers]]
+  name = "lang#r"
+  
+[[layers]]
+  name = "lang#ruby"
+  
+[[layers]]
+  name = "lang#rust"
+  
+[[layers]]
+  name = "lang#scala"
+  
+[[layers]]
+  name = "lang#sh"
+  
+[[layers]]
+  name = "lang#swift"
+  
+[[layers]]
+  name = "lang#toml"
+  
+[[layers]]
+  name = "lang#typescript"
+  
+[[layers]]
+  name = "lang#vim"
+  
+[[layers]]
+  name = "lang#vue"
+  
+[[layers]]
+  name = "lang#wolfram"
+  
+[[layers]]
+  name = "lang#xml"
+  
+[[layers]]
+  name = "lang#zig"
+
+[[layers]]
+  name = "lsp"
+  filetypes = ["rust"]
+  [layers.override_cmd]
+    rust = ['rustup', 'run', 'stable', 'rls']
+  
+[[layers]]
+name = 'shell'
+default_position = 'top'
+default_height = 30
+
+[[layers]]
+  name = "sudo"
+
+[[layers]]
+  name = "tools"
+
+[[layers]]
+  name = "ui"
+
+[[layers]]
+  name = "VersionControl"
+
+[[custom_plugins]]
+  repo = "Soares/fish.vim"
+  merged = false
+
+[[cusom_plugins]]
+  repo = 'acristoffers/lazygit.vim'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'andymass/vim-matchup'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'ararslan/license-to-vim'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'jackguo380/vim-lsp-cxx-highlight'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'jceb/vim-orgmode'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'lervag/vimtex'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'mattn/emmet-vim'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'michaeljsmith/vim-indent-object'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'ntpeters/vim-better-whitespace'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'raimondi/delimitmate'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'sheerun/vim-polyglot'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'terryma/vim-multiple-cursors'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'tpope/vim-repeat'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'tpope/vim-unimpaired'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'vim-latex/vim-latex'
+  merged = false
+  
+[[cusom_plugins]]
+  repo = 'wellle/targets.vim'
+  merged = false
+
