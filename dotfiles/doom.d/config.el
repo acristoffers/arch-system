@@ -52,6 +52,7 @@
 ;; they are implemented.
 
 (use-package! julia-formatter)
+(use-package! zig-mode)
 
 (setq! lsp-clients-clangd-executable "/Users/Alan/.config/coc/extensions/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd")
 (setq! lsp-clients-kotlin-server-executable "/Users/Alan/.config/coc/extensions/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
@@ -78,6 +79,14 @@
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'python-mode-hook (lambda () (format-all-mode -1)))
 (add-hook 'julia-mode-hook #'julia-formatter-server-start)
+
+(map! :desc "Run all Jupyter notebook cells"
+      :map ein:notebook-mode-map
+      "C-c a" #'ein:worksheet-execute-all-cells)
+
+(map! :desc "Stop ein notebook"
+      :map ein:notebooklist-mode-map
+      "C-c C-s" #'ein:stop)
 
 (map! :leader
       :after evil-org
