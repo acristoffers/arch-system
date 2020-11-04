@@ -66,7 +66,7 @@ let g:license_email = 'acristoffers@gmail.com'
 "" COC Exensions
 let g:coc_global_extensions = [
             \ 'coc-marketplace', 'coc-tsserver', 'coc-json', 'coc-html',
-            \ 'coc-css', 'coc-python', 'coc-angular', 'coc-clangd',
+            \ 'coc-css', 'coc-pyright', 'coc-angular', 'coc-clangd',
             \ 'coc-elixir', 'coc-erlang_ls', 'coc-eslint', 'coc-flutter',
             \ 'coc-fsharp', 'coc-git', 'coc-go', 'coc-highlight',
             \ 'coc-lsp-wl', 'coc-markdownlint', 'coc-omnisharp', 'coc-java',
