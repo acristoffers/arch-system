@@ -18,21 +18,21 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+;; (setq! doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
+(setq! doom-theme 'doom-dracula)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq! org-directory "~/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'visual)
+(setq! display-line-numbers-type 'visual)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -61,7 +61,7 @@
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq! flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   ;; company is an optional dependency. You have to
@@ -70,7 +70,13 @@
   (company-mode +1))
 
 ;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
+(setq! company-tooltip-align-annotations t)
+
+;; tells pyright what is the right python executable
+(setq! lsp-pyright-python-executable-cmd (executable-find "python3"))
+
+;; right-align tags in org-mode
+(setq! org-tags-column -80)
 
 ;; formats the buffer before saving
 (add-hook 'before-save-hook 'tide-format-before-save)
@@ -108,12 +114,12 @@
 (set-frame-position (selected-frame) 583 0)
 (set-frame-size (selected-frame) 119 62)
 
-(setq +format-on-save-enabled-modes
-      '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
-            sql-mode         ; sqlformat is currently broken
-            tex-mode         ; latexindent is broken
-            latex-mode
-            python-mode))
+(setq! +format-on-save-enabled-modes
+       '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
+             sql-mode         ; sqlformat is currently broken
+             tex-mode         ; latexindent is broken
+             latex-mode
+             python-mode))
 
 ;; (setenv "DICTIONARY" "en")
 ;; (setenv "LANG" "en")
@@ -121,11 +127,11 @@
 ;;   (let ((dictionaries (string-join (list "en" "en_GB" "en_CA" "pt" "pt_PT" "de"
 ;;                                          "fr" "it" "ru")
 ;;                                    ",")))
-;;     (setq ispell-dictionary dictionaries)
+;;     (setq! ispell-dictionary dictionaries)
 ;;     (ispell-set-spellchecker-params)
 ;;     (ispell-hunspell-add-multi-dic dictionaries)
-;;     (setq ispell-personal-dictionary "~/.hunspell_personal")
-;;     (setq flyspell-lazy-idle-seconds 10)
+;;     (setq! ispell-personal-dictionary "~/.hunspell_personal")
+;;     (setq! flyspell-lazy-idle-seconds 10)
 ;;     (unless (file-exists-p ispell-personal-dictionary)
 ;;       (write-region "" nil ispell-personal-dictionary nil 0))))
 
@@ -164,13 +170,13 @@
                                     :project-file "latexmkrc"
                                     :compile "latexmk"))
 
-(after! lsp (setq lsp-enable-symbol-highlighting nil))
+(after! lsp (setq! lsp-enable-symbol-highlighting nil))
 
-(setq lsp-julia-default-environment "~/.julia/environments/v1.5")
-(setq lsp-julia-package-dir nil)
+(setq! lsp-julia-default-environment "~/.julia/environments/v1.5")
+(setq! lsp-julia-package-dir nil)
 
-(setq lsp-enable-folding t)
-(setq lsp-folding-range-limit 100)
+(setq! lsp-enable-folding t)
+(setq! lsp-folding-range-limit 100)
 
 ;; In Julia, run
 ;; ] add https://github.com/julia-vscode/LanguageServer.jl
@@ -183,4 +189,4 @@
 (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 
 ;; Inline images in EIN
-(setq ein:output-area-inlined-images t)
+(setq! ein:output-area-inlined-images t)
