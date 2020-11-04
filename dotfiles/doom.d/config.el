@@ -190,3 +190,7 @@
 
 ;; Inline images in EIN
 (setq! ein:output-area-inlined-images t)
+
+(when IS-MAC
+  (setq! mac-option-modifier 'meta)
+  (setq! mac-right-option-modifier 'meta))
