@@ -28,7 +28,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq! org-directory "~/.org/")
+(setq! org-directory (expand-file-name "~/.org/"))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -53,6 +53,9 @@
 
 (use-package! julia-formatter)
 (use-package! zig-mode)
+(use-package! appt)
+(use-package! alert
+  :custom (alert-default-style 'osx-notifier))
 
 (defun setup-tide-mode ()
   (interactive)
@@ -160,29 +163,38 @@
 
 (after! lsp (setq! lsp-enable-symbol-highlighting nil))
 
-(setq!
- lsp-clients-clangd-executable "/Users/Alan/.config/coc/extensions/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd"
- lsp-clients-kotlin-server-executable "/Users/Alan/.config/coc/extensions/kotlin-language-server/server/build/install/server/bin/kotlin-language-server"
+(defvar-local coc-extensions (expand-file-name "~/.config/coc/extensions"))
+(defvar-local coc-clangd-bin "/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd")
+(defvar-local coc-kotlin-bin "/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
 
- ;; aligns annotation to the right hand side
- company-tooltip-align-annotations t
+(setq! org-tags-column -80
 
- ;; tells pyright what is the right python executable
- lsp-pyright-python-executable-cmd (executable-find "python3")
+       lsp-clients-clangd-executable (format "%s%s" coc-extensions coc-clangd-bin)
+       lsp-clients-kotlin-server-executable (format "%s%s" coc-extensions coc-kotlin-bin)
 
- ;; right-align tags in org-mode
- org-tags-column -80
+       ;; aligns annotation to the right hand side
+       company-tooltip-align-annotations t
 
- ;; Julia LSP config
- ;; In Julia, run
- ;; ] add https://github.com/julia-vscode/LanguageServer.jl
- lsp-julia-default-environment "~/.julia/environments/v1.5"
- lsp-julia-package-dir nil
- lsp-enable-folding t
- lsp-folding-range-limit 100
+       ;; tells pyright what is the right python executable
+       lsp-pyright-python-executable-cmd (executable-find "python3")
 
- ;; EIN (Jupyter Notebook) config
- ein:output-area-inlined-images t)
+       ;; Julia LSP config
+       ;; In Julia, run
+       ;; ] add https://github.com/julia-vscode/LanguageServer.jl
+       lsp-julia-default-environment "~/.julia/environments/v1.5"
+       lsp-julia-package-dir nil
+       lsp-enable-folding t
+       lsp-folding-range-limit 100
+
+       ;; org-journal
+       org-journal-dir (expand-file-name "~/.org/journal")
+       org-journal-date-prefix "#+TITLE: "
+       org-journal-time-prefix "* "
+       org-journal-date-format "%a, %Y-%m-%d"
+       org-journal-file-format "%Y-%m-%d.org"
+
+       ;; EIN (Jupyter Notebook) config
+       ein:output-area-inlined-images t)
 
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-motion-state-map "j" 'evil-next-visual-line)
@@ -194,3 +206,36 @@
 (when IS-MAC
   (setq! mac-option-modifier 'meta)
   (setq! mac-right-option-modifier 'meta))
+
+(setq! appt-time-msg-list nil       ;; clear existing appt list
+       appt-display-interval 15     ;; warn every 15 minutes
+       appt-message-warning-time 60 ;; send first warning 60 minutes before appointment
+       appt-display-mode-line nil   ;; don't show in the modeline
+       appt-display-format 'window) ;; pass warnings to the designated window function
+
+(defun agenda-to-appt ()
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+
+(add-hook 'after-save-hook
+          '(lambda ()
+             (if (-contains? (mapcar 'expand-file-name org-agenda-files) (buffer-file-name))
+                 (agenda-to-appt))))
+
+(appt-activate t)                                    ;; activate appointment notification
+(agenda-to-appt)                                     ;; generate the appt list from org agenda files on emacs launch
+(run-at-time "24:01" 3600 'agenda-to-appt)           ;; update appt list hourly
+(add-hook 'org-finalize-agenda-hook 'agenda-to-appt) ;; update appt list on agenda view
+
+;; set up the call to alert
+(defun send-notification (title msg)
+  (alert msg :title title))
+
+;; designate the window function for my-appt-send-notification
+(defun appt-display (min-to-app _ msg)
+  (send-notification
+   (format "Task in %s minutes" min-to-app)
+   msg))
+
+(setq appt-disp-window-function (function appt-display))
