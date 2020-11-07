@@ -28,7 +28,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq! org-directory "~/org/")
+(setq! org-directory "~/.org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -54,9 +54,6 @@
 (use-package! julia-formatter)
 (use-package! zig-mode)
 
-(setq! lsp-clients-clangd-executable "/Users/Alan/.config/coc/extensions/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd")
-(setq! lsp-clients-kotlin-server-executable "/Users/Alan/.config/coc/extensions/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
-
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
@@ -68,15 +65,6 @@
   ;; install it separately via package-install
   ;; `M-x package-install [ret] company`
   (company-mode +1))
-
-;; aligns annotation to the right hand side
-(setq! company-tooltip-align-annotations t)
-
-;; tells pyright what is the right python executable
-(setq! lsp-pyright-python-executable-cmd (executable-find "python3"))
-
-;; right-align tags in org-mode
-(setq! org-tags-column -80)
 
 ;; formats the buffer before saving
 (add-hook 'before-save-hook 'tide-format-before-save)
@@ -172,14 +160,29 @@
 
 (after! lsp (setq! lsp-enable-symbol-highlighting nil))
 
-(setq! lsp-julia-default-environment "~/.julia/environments/v1.5")
-(setq! lsp-julia-package-dir nil)
+(setq!
+ lsp-clients-clangd-executable "/Users/Alan/.config/coc/extensions/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd"
+ lsp-clients-kotlin-server-executable "/Users/Alan/.config/coc/extensions/kotlin-language-server/server/build/install/server/bin/kotlin-language-server"
 
-(setq! lsp-enable-folding t)
-(setq! lsp-folding-range-limit 100)
+ ;; aligns annotation to the right hand side
+ company-tooltip-align-annotations t
 
-;; In Julia, run
-;; ] add https://github.com/julia-vscode/LanguageServer.jl
+ ;; tells pyright what is the right python executable
+ lsp-pyright-python-executable-cmd (executable-find "python3")
+
+ ;; right-align tags in org-mode
+ org-tags-column -80
+
+ ;; Julia LSP config
+ ;; In Julia, run
+ ;; ] add https://github.com/julia-vscode/LanguageServer.jl
+ lsp-julia-default-environment "~/.julia/environments/v1.5"
+ lsp-julia-package-dir nil
+ lsp-enable-folding t
+ lsp-folding-range-limit 100
+
+ ;; EIN (Jupyter Notebook) config
+ ein:output-area-inlined-images t)
 
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-motion-state-map "j" 'evil-next-visual-line)
@@ -187,9 +190,6 @@
 ;; Also in visual mode
 (define-key evil-visual-state-map "j" 'evil-next-visual-line)
 (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
-
-;; Inline images in EIN
-(setq! ein:output-area-inlined-images t)
 
 (when IS-MAC
   (setq! mac-option-modifier 'meta)
