@@ -55,7 +55,7 @@
 (use-package! zig-mode)
 (use-package! appt)
 (use-package! alert
-  :custom (alert-default-style 'osx-notifier))
+  :custom (alert-default-style (if IS-MAC 'osx-notifier 'notifications)))
 
 (defun setup-tide-mode ()
   (interactive)
