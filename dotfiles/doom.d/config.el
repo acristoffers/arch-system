@@ -163,14 +163,13 @@
                                     :compile "latexmk"))
 
 (after! lsp (setq! lsp-enable-symbol-highlighting nil))
+(after! org (setq! org-tags-column -80))
 
 (defvar-local coc-extensions (expand-file-name "~/.config/coc/extensions"))
 (defvar-local coc-clangd-bin "/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd")
 (defvar-local coc-kotlin-bin "/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
 
-(setq! org-tags-column -80
-
-       lsp-clients-clangd-executable (format "%s%s" coc-extensions coc-clangd-bin)
+(setq! lsp-clients-clangd-executable (format "%s%s" coc-extensions coc-clangd-bin)
        lsp-clients-kotlin-server-executable (format "%s%s" coc-extensions coc-kotlin-bin)
 
        ;; aligns annotation to the right hand side
