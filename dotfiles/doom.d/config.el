@@ -76,6 +76,7 @@
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'python-mode-hook (lambda () (format-all-mode -1)))
 (add-hook 'julia-mode-hook #'julia-formatter-server-start)
+(add-hook 'TeX-mode-hook (lambda () (setq! TeX-electric-math (cons "\\(" ""))))
 
 (map! :desc "Run all Jupyter notebook cells"
       :map ein:notebook-mode-map
