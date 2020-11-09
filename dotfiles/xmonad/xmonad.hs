@@ -110,7 +110,8 @@ myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "compton &"
-          spawnOnce "klipper&"
+          spawnOnce "klipper &"
+          spawnOnce "twmnd &"
           spawnOnce "/usr/bin/emacs --daemon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x282A36 --height 19 &"
           setWMName "XMonad"

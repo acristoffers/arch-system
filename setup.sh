@@ -28,7 +28,7 @@ popd || exit
 ################################################################################
 
 yay -S fish zsh bash python3 nodejs neovim vim curl which npm python-pip emacs \
-       tmux
+       tmux fzf lazygit
 
 mkdir ~/.npm-global
 npm config set prefix "$HOME/.npm-global"
@@ -48,7 +48,8 @@ rm -rf shell_profile_generator
 popd || exit
 
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
-fish -c "fisher add dracula/fish"
+fish -c "fisher install dracula/fish"
+fish -c "fisher install jethrokuan/fzf"
 
 cp dotfiles/vimrc ~/.vimrc
 cp dotfiles/tmux.conf ~/.tmux.conf
@@ -109,7 +110,7 @@ cp -r dotfiles/doom.d ~/.doom.d
 yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
        alacritty firefox qalculate-gtk openssh xmonad-contrib rsync xclip \
        pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-equalizer \
-       pulseaudio-zeroconf alsa-utils paprefs pavucontrol
+       pulseaudio-zeroconf alsa-utils paprefs pavucontrol twmn
 
 mkdir -p ~/Images ~/Music ~/Documents ~/Desktop ~/Developer
 cp dotfiles/wallpaper.jpg ~/Images/wallpaper.jpg

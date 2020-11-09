@@ -25,7 +25,8 @@ nvim ~/.promptline.sh -c 'argdo /truncation' \
                       -c 'wq'
 
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
-fish -c "fisher add dracula/fish"
+fish -c "fisher install dracula/fish"
+fish -c "fisher install jethrokuan/fzf"
 
 ~/.emacs.d/bin/doom -y sync
 ~/.emacs.d/bin/doom -y upgrade
