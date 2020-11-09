@@ -165,7 +165,7 @@
 (after! lsp (setq! lsp-enable-symbol-highlighting nil))
 
 (defvar-local coc-extensions (expand-file-name "~/.config/coc/extensions"))
-(defvar-local coc-clangd-bin "/coc-clangd-data/install/10.0.0/clangd_10.0.0/bin/clangd")
+(defvar-local coc-clangd-bin "/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd")
 (defvar-local coc-kotlin-bin "/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
 
 (setq! org-tags-column -80
