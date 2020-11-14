@@ -238,7 +238,6 @@ reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
 searchList :: [(String, S.SearchEngine)]
 searchList = [ ("a", archwiki)
              , ("g", S.google)
-             , ("h", S.hoogle)
              , ("i", S.images)
              , ("r", reddit)
              , ("s", S.stackage)
@@ -307,10 +306,10 @@ myKeys =
         , ("M-S-<KP_Multiply>", increaseLimit)              -- Increase number of windows
         , ("M-S-<KP_Divide>", decreaseLimit)                -- Decrease number of windows
 
-        , ("M-l", sendMessage Shrink)                       -- Shrink horiz window width
-        , ("M-h", sendMessage Expand)                       -- Expand horiz window width
-        , ("M-C-j", sendMessage MirrorShrink)               -- Shrink vert window width
-        , ("M-C-k", sendMessage MirrorExpand)               -- Exoand vert window width
+        , ("M-C-l", sendMessage Shrink)       -- Shrink horiz window width
+        , ("M-C-h", sendMessage Expand)       -- Expand horiz window width
+        , ("M-C-j", sendMessage MirrorShrink) -- Shrink vert window width
+        , ("M-C-k", sendMessage MirrorExpand) -- Exoand vert window width
 
     -- Workspaces
         , ("M-.", nextScreen)  -- Switch focus to next monitor
