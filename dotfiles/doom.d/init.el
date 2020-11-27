@@ -140,12 +140,12 @@
        (latex +lsp +latexmk)          ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
-       ;;ledger                       ; an accounting system in Emacs
+       ledger                         ; an accounting system in Emacs
        (lua +lsp +moonscript)         ; one-based indices? one-based indices
        (markdown +grip)               ; writing docs for people to ignore
        nim                            ; python + lisp at the speed of c
-       nix                            ; I hereby declare "nix geht mehr!"
-       ocaml                          ; an objective camel
+       ;; nix                         ; I hereby declare "nix geht mehr!"
+       ;; ocaml                       ; an objective camel
        (org
         +dragndrop
         +journal
@@ -162,7 +162,7 @@
        ;;rst                          ; ReST in peace
        (ruby +lsp +rails)             ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (rust +lsp)                    ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-       (scala +lsp)                   ; java, but good
+       ;; (scala +lsp)                ; java, but good
        ;;scheme                       ; a fully conniving family of lisps
        (sh +fish +lsp)                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
