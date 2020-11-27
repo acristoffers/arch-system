@@ -18,8 +18,14 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq! doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq! doom-font (font-spec
+                  :family "Inconsolata Nerd Font Mono"
+                  :size 14
+                  :weight 'medium)
+       doom-variable-pitch-font (font-spec
+                                 :family "Inconsolata Nerd Font"
+                                 :size 14
+                                 :weight 'medium))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -76,7 +82,18 @@
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'python-mode-hook (lambda () (format-all-mode -1)))
 (add-hook 'julia-mode-hook #'julia-formatter-server-start)
-(add-hook 'TeX-mode-hook (lambda () (setq! TeX-electric-math (cons "\\(" ""))))
+(add-hook 'TeX-mode-hook (lambda ()
+                           (setq! TeX-electric-math (cons "\\(" ""))
+                           (setq TeX-quote-after-quote t)
+                           (sp-with-modes '(
+                                            tex-mode
+                                            plain-tex-mode
+                                            latex-mode
+                                            LaTeX-mode
+                                            )
+                             (sp-local-pair "``" nil
+                                            :actions :rem))
+                           ))
 
 (map! :desc "Run all Jupyter notebook cells"
       :map ein:notebook-mode-map
@@ -103,8 +120,16 @@
       :desc "Clears search highlight"
       "s c" #'evil-ex-nohighlight)
 
-(set-frame-position (selected-frame) 583 0)
-(set-frame-size (selected-frame) 119 62)
+(map! :after latex
+      :textobj "C" #'evil-tex-inner-command #'evil-tex-a-command)
+
+(dotimes (n 10) (global-set-key (kbd (format "C-s-%d" n)) 'centaur-tabs-select-visible-tab))
+
+(defun fv()
+  (set-frame-position (selected-frame) 583 0)
+  (set-frame-size (selected-frame) 119 63))
+
+(when IS-MAC (fv))
 
 (setq! +format-on-save-enabled-modes
        '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
@@ -162,12 +187,21 @@
                                     :project-file "latexmkrc"
                                     :compile "latexmk"))
 
-(after! lsp (setq! lsp-enable-symbol-highlighting nil))
+;; lsp-mode IS the name of the package, we're NOT referencing the mode.
+;; (after! lsp-mode (setq! lsp-enable-symbol-highlighting nil))
 (after! org (setq! org-tags-column -80))
 
 (defvar-local coc-extensions (expand-file-name "~/.config/coc/extensions"))
 (defvar-local coc-clangd-bin "/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd")
 (defvar-local coc-kotlin-bin "/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
+
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection (executable-find "zls"))
+    :major-modes '(zig-mode)
+    :server-id 'zls)))
 
 (setq! lsp-clients-clangd-executable (format "%s%s" coc-extensions coc-clangd-bin)
        lsp-clients-kotlin-server-executable (format "%s%s" coc-extensions coc-kotlin-bin)
@@ -230,12 +264,69 @@
 
 ;; set up the call to alert
 (defun send-notification (title msg)
-  (alert msg :title title))
+  (alert (xah-asciify-string msg) :title (xah-asciify-string title)))
 
 ;; designate the window function for my-appt-send-notification
 (defun appt-display (min-to-app _ msg)
   (send-notification
-   (format "Task in %s minutes" min-to-app)
-   msg))
+   (format "Task in %s minutes" (substring-no-properties min-to-app))
+   (substring-no-properties msg)))
 
 (setq appt-disp-window-function (function appt-display))
+
+(defun xah-asciify-text (&optional @begin @end)
+  "Remove accents in some letters and some
+   Change European language characters into equivalent ASCII ones, e.g. “café” ⇒ “cafe”.
+   When called interactively, work on current line or text selection.
+
+   URL `http://ergoemacs.org/emacs/emacs_zap_gremlins.html'
+   Version 2018-11-12"  (interactive)
+  (let (($charMap
+         [
+          ["ß" "ss"]
+          ["á\\|à\\|â\\|ä\\|ā\\|ǎ\\|ã\\|å\\|ą\\|ă\\|ạ\\|ả\\|ả\\|ấ\\|ầ\\|ẩ\\|ẫ\\|ậ\\|ắ\\|ằ\\|ẳ\\|ặ" "a"]
+          ["æ" "ae"]
+          ["ç\\|č\\|ć" "c"]
+          ["é\\|è\\|ê\\|ë\\|ē\\|ě\\|ę\\|ẹ\\|ẻ\\|ẽ\\|ế\\|ề\\|ể\\|ễ\\|ệ" "e"]
+          ["í\\|ì\\|î\\|ï\\|ī\\|ǐ\\|ỉ\\|ị" "i"]
+          ["ñ\\|ň\\|ń" "n"]
+          ["ó\\|ò\\|ô\\|ö\\|õ\\|ǒ\\|ø\\|ō\\|ồ\\|ơ\\|ọ\\|ỏ\\|ố\\|ổ\\|ỗ\\|ộ\\|ớ\\|ờ\\|ở\\|ợ" "o"]
+          ["ú\\|ù\\|û\\|ü\\|ū\\|ũ\\|ư\\|ụ\\|ủ\\|ứ\\|ừ\\|ử\\|ữ\\|ự"     "u"]
+          ["ý\\|ÿ\\|ỳ\\|ỷ\\|ỹ"     "y"]
+          ["þ" "th"]
+          ["ď\\|ð\\|đ" "d"]
+          ["ĩ" "i"]
+          ["ľ\\|ĺ\\|ł" "l"]
+          ["ř\\|ŕ" "r"]
+          ["š\\|ś" "s"]
+          ["ť" "t"]
+          ["ž\\|ź\\|ż" "z"]
+          [" " " "]       ; thin space etc
+          ["–" "-"]       ; dash
+          ["—\\|一" "--"] ; em dash etc
+          ])
+        $begin $end
+        )
+    (if (null @begin)
+        (if (use-region-p)
+            (setq $begin (region-beginning) $end (region-end))
+          (setq $begin (line-beginning-position) $end (line-end-position)))
+      (setq $begin @begin $end @end))
+    (let ((case-fold-search t))
+      (save-restriction
+        (narrow-to-region $begin $end)
+        (mapc
+         (lambda ($pair)
+           (goto-char (point-min))
+           (while (search-forward-regexp (elt $pair 0) (point-max) t)
+             (replace-match (elt $pair 1))))
+         $charMap)))))
+
+(defun xah-asciify-string (@string)
+  "Returns a new string. European language chars are changed ot ASCII ones e.g. “café” ⇒ “cafe”.
+   See `xah-asciify-text'
+   Version 2015-06-08"
+  (with-temp-buffer
+    (insert @string)
+    (xah-asciify-text (point-min) (point-max))
+    (buffer-string)))
