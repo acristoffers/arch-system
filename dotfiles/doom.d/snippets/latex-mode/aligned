@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: Equation+aligned env
+# uuid: ald
+# key: ald
+# --
+
+\begin{equation}
+  \begin{aligned}
+    $0
+  \end{aligned}
+\end{equation}

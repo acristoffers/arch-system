@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Equation environment (LaTeX)
+# uuid: eq
+# key: eq
+# --
+
+\begin{equation}
+  $0
+\end{equation}

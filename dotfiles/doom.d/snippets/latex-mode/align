@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Align block (LaTeX)
+# uuid: aln
+# key: aln
+# --
+
+\begin{align}
+  $0
+\end{align}
