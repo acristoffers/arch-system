@@ -120,14 +120,32 @@
       :desc "Clears search highlight"
       "s c" #'evil-ex-nohighlight)
 
+(map! :leader
+      :desc "Go to previous empty line"
+      "{" #'go-prev-empty-line)
+
+(map! :leader
+      :desc "Go to next empty line"
+      "}" #'go-next-empty-line)
+
 (map! :after latex
       :textobj "C" #'evil-tex-inner-command #'evil-tex-a-command)
 
 (dotimes (n 10) (global-set-key (kbd (format "C-s-%d" n)) 'centaur-tabs-select-visible-tab))
 
-(defun fv()
+(defun go-next-empty-line ()
+  (interactive)
+  (evil-next-visual-line)
+  (re-search-forward "^[[:blank:]]*$"))
+
+(defun go-prev-empty-line ()
+  (interactive)
+  (evil-previous-visual-line)
+  (re-search-backward "^[[:blank:]]*$"))
+
+(defun fv ()
   (set-frame-position (selected-frame) 583 0)
-  (set-frame-size (selected-frame) 119 63))
+  (set-frame-size (selected-frame) 120 63))
 
 (when IS-MAC (fv))
 
