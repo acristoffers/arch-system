@@ -109,7 +109,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
-          spawnOnce "compton &"
+          spawnOnce "picom --experimental-backends &"
           spawnOnce "klipper &"
           spawnOnce "twmnd &"
           spawnOnce "/usr/bin/emacs --daemon &"
@@ -360,15 +360,15 @@ myKeys =
 --------------------------------------------------------------------------------
 
 myWorkspaces :: Forest String
-myWorkspaces = [ Node "\xf488 "  [] -- a workspace for your browser
+myWorkspaces = [ Node "\xf269 "  [] -- a workspace for your browser
                , Node "\xf489 " [] -- for everyday activity's
-               , Node "\xf108  3"  [] -- for everyday activity's
+               , Node "\xe779 "  [] -- for everyday activity's
                , Node "\xf108  4"  [] -- for everyday activity's
                , Node "\xf108  5"  [] -- for everyday activity's
                , Node "\xf108  6"  [] -- for everyday activity's
                , Node "\xf108  7"  [] -- for everyday activity's
                , Node "\xf108  8"  [] -- for everyday activity's
-               , Node "\xf6ef  9"  [] -- for everyday activity's
+               , Node "\xf6ef "  [] -- for everyday activity's
                ]
 
 --------------------------------------------------------------------------------
@@ -383,8 +383,8 @@ myWorkspaces = [ Node "\xf488 "  [] -- a workspace for your browser
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     [ className =? "firefox"   --> doShift ( "\xf488 ")
-     , className =? "vlc"       --> doShift ( "\xf488 ")
+     [ className =? "firefox"   --> doShift ( "\xf269 ")
+     , className =? "vlc"       --> doShift ( "\xf269 ")
      -- Float Firefox Dialog
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
      ] <+> namedScratchpadManageHook myScratchPads
