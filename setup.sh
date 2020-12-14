@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 if [[ "$USER" = "root" ]]; then
-    echo "Run this script as a normal user."
-    echo "To create a user, edit and run create_user.sh"
-    exit 0
+	echo "Run this script as a normal user."
+	echo "To create a user, edit and run create_user.sh"
+	exit 0
 fi
 
 ################################################################################
@@ -28,7 +28,7 @@ popd || exit
 ################################################################################
 
 yay -S fish zsh bash python3 nodejs neovim vim curl which npm python-pip emacs \
-       tmux fzf lazygit
+	tmux fzf lazygit
 
 mkdir ~/.npm-global
 npm config set prefix "$HOME/.npm-global"
@@ -55,7 +55,7 @@ cp dotfiles/vimrc ~/.vimrc
 cp dotfiles/tmux.conf ~/.tmux.conf
 
 pushd ~ || exit
-rm -rf .vim .config/nvim .local/share/nvim &> /dev/null
+rm -rf .vim .config/nvim .local/share/nvim &>/dev/null
 mkdir -p .config/nvim
 pushd .config/nvim || exit
 ln -s ~/.vimrc init.vim
@@ -70,7 +70,7 @@ curl -fLo "$NVIM_CFG_FDR"/nvim/site/autoload/plug.vim --create-dirs $VIM_PLUG
 nvim --headless +PlugInstall +qa
 
 nvim --headless +'PromptlineSnapshot ~/.promptline.sh airline' +qa
-tee ~/.config/fish/functions/fish_prompt.fish << EOF
+tee ~/.config/fish/functions/fish_prompt.fish <<EOF
 function fish_prompt
   env FISH_VERSION=\$FISH_VERSION PROMPTLINE_LAST_EXIT_CODE=\$status bash ~/.promptline.sh left
 end
@@ -78,13 +78,13 @@ EOF
 echo "source ~/.promptline.sh" | tee -a ~/.profile
 echo "source ~/.promptline.sh" | tee -a ~/.zshrc
 nvim ~/.promptline.sh -c 'argdo /truncation' \
-                      -c 'argdo normal di"' \
-                      -c 'argdo /dir_sep' \
-                      -c 'argdo normal di"' \
-                      -c 'wq'
+	-c 'argdo normal di"' \
+	-c 'argdo /dir_sep' \
+	-c 'argdo normal di"' \
+	-c 'wq'
 
 if ! grep -Fq fish /etc/shells; then
-    which fish | sudo tee -a /etc/shells
+	which fish | sudo tee -a /etc/shells
 fi
 chsh -s "$(which fish)"
 
@@ -108,9 +108,9 @@ cp -r dotfiles/doom.d ~/.doom.d
 ################################################################################
 
 yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
-       alacritty firefox qalculate-gtk openssh xmonad-contrib rsync xclip \
-       pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-equalizer \
-       pulseaudio-zeroconf alsa-utils paprefs pavucontrol twmn
+	alacritty firefox qalculate-gtk openssh xmonad-contrib rsync xclip \
+	pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-equalizer \
+	pulseaudio-zeroconf alsa-utils paprefs pavucontrol twmn rofi
 
 mkdir -p ~/Images ~/Music ~/Documents ~/Desktop ~/Developer
 cp dotfiles/wallpaper.jpg ~/Images/wallpaper.jpg

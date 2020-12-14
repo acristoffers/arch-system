@@ -40,11 +40,9 @@ import           XMonad.Hooks.SetWMName
 -- Layouts
 import           XMonad.Layout.GridVariants (Grid(Grid))
 import           XMonad.Layout.SimplestFloat
-import           XMonad.Layout.Spiral
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Reflect
 import           XMonad.Layout.Tabbed
-import           XMonad.Layout.ThreeColumns
 import           XMonad.Layout.LayoutModifier
 import           XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import           XMonad.Layout.Magnifier
@@ -61,9 +59,7 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 import           XMonad.Prompt
 import           XMonad.Prompt.Input
 import           XMonad.Prompt.Man
-import           XMonad.Prompt.Pass
 import           XMonad.Prompt.Shell (shellPrompt)
-import           XMonad.Prompt.Ssh
 import           XMonad.Prompt.XMonad
 import           Control.Arrow (first)
 
@@ -261,6 +257,7 @@ myKeys :: [(String, X ())]
 myKeys =
     -- Lock screen
         [ ("M-S-l", spawn "slock")
+        
     -- Xmonad
         , ("M-C-r", spawn "xmonad --recompile")      -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
@@ -282,16 +279,15 @@ myKeys =
         , ("M-S-<Delete>", sinkAll)                      -- Push ALL floating windows to tile
 
     -- Windows navigation
-        , ("M-m", windows W.focusMaster)     -- Move focus to the master window
-        , ("M-j", windows W.focusDown)       -- Move focus to the next window
-        , ("M-k", windows W.focusUp)         -- Move focus to the prev window
-        --, ("M-S-m", windows W.swapMaster)    -- Swap the focused window and the master window
-        , ("M-S-j", windows W.swapDown)      -- Swap focused window with next window
-        , ("M-S-k", windows W.swapUp)        -- Swap focused window with prev window
-        , ("M-<Backspace>", promote)         -- Moves focused window to master, others maintain order
-        , ("M1-S-<Tab>", rotSlavesDown)      -- Rotate all windows except master and keep focus in place
-        , ("M1-C-<Tab>", rotAllDown)         -- Rotate all the windows in the current stack
-        --, ("M-S-s", windows copyToAll)
+        , ("M-m", windows W.focusMaster)  -- Move focus to the master window
+        , ("M-j", windows W.focusDown)    -- Move focus to the next window
+        , ("M-k", windows W.focusUp)      -- Move focus to the prev window
+        , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
+        , ("M-S-j", windows W.swapDown)   -- Swap focused window with next window
+        , ("M-S-k", windows W.swapUp)     -- Swap focused window with prev window
+        , ("M-<Backspace>", promote)      -- Moves focused window to master, others maintain order
+        , ("M1-S-<Tab>", rotSlavesDown)   -- Rotate all windows except master and keep focus in place
+        , ("M1-C-<Tab>", rotAllDown)      -- Rotate all the windows in the current stack
         , ("M-C-s", killAllOtherCopies)
 
         -- Layouts
@@ -331,18 +327,25 @@ myKeys =
         , ("M-e t", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'")         -- eshell within emacs
 
     -- Multimedia Keys
-        , ("<XF86AudioPlay>", spawn "cmus toggle")
-        , ("<XF86AudioPrev>", spawn "cmus prev")
-        , ("<XF86AudioNext>", spawn "cmus next")
-        -- , ("<XF86AudioMute>",   spawn "amixer set Master toggle")  -- Bug prevents it from toggling correctly in 12.04.
-        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
-        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+        -- , ("<XF86AudioPlay>", spawn "cmus toggle")
+        -- , ("<XF86AudioPrev>", spawn "cmus prev")
+        -- , ("<XF86AudioNext>", spawn "cmus next")
+        , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+        , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
+        , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
         , ("<XF86HomePage>", spawn "firefox")
         , ("<XF86Search>", safeSpawn "firefox" ["https://www.google.com/"])
         , ("<XF86Mail>", runOrRaise "geary" (resource =? "thunderbird"))
         , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
         , ("<XF86Eject>", spawn "toggleeject")
         , ("<Print>", spawn "scrotd 0")
+
+    -- Applications
+        , ("M-a f", spawn "firefox")
+        , ("M-a t", spawn "thunderbird")
+
+    -- Rofi
+        , ("M-r", spawn "rofi -combi-modi window,drun -show combi -modi combi -show-icons")
         ]
         -- Appending search engines to keybindings list
         ++ [("M-s " ++ k, S.promptSearch myXPConfig' f) | (k,f) <- searchList ]
@@ -360,15 +363,15 @@ myKeys =
 --------------------------------------------------------------------------------
 
 myWorkspaces :: Forest String
-myWorkspaces = [ Node "\xf269 "  [] -- a workspace for your browser
+myWorkspaces = [ Node "\xf269 " [] -- a workspace for your browser
                , Node "\xf489 " [] -- for everyday activity's
-               , Node "\xe779 "  [] -- for everyday activity's
-               , Node "\xf108  4"  [] -- for everyday activity's
-               , Node "\xf108  5"  [] -- for everyday activity's
-               , Node "\xf108  6"  [] -- for everyday activity's
-               , Node "\xf108  7"  [] -- for everyday activity's
-               , Node "\xf108  8"  [] -- for everyday activity's
-               , Node "\xf6ef "  [] -- for everyday activity's
+               , Node "\xe779 " [] -- for everyday activity's
+               , Node "4:\xf878 " [] -- for everyday activity's
+               , Node "5:\xf878 " [] -- for everyday activity's
+               , Node "6:\xf878 " [] -- for everyday activity's
+               , Node "7:\xf878 " [] -- for everyday activity's
+               , Node "8:\xf878 " [] -- for everyday activity's
+               , Node "\xf6ef " [] -- for everyday activity's
                ]
 
 --------------------------------------------------------------------------------
@@ -383,8 +386,8 @@ myWorkspaces = [ Node "\xf269 "  [] -- a workspace for your browser
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     [ className =? "firefox"   --> doShift ( "\xf269 ")
-     , className =? "vlc"       --> doShift ( "\xf269 ")
+     [ className =? "firefox" --> doShift ( "\xf269 ")
+     , className =? "Emacs"   --> doShift ( "\xe779 ")
      -- Float Firefox Dialog
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
      ] <+> namedScratchpadManageHook myScratchPads
@@ -494,15 +497,15 @@ main = do
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
         , logHook = dynamicLogWithPP $ xmobarPP
-                       { ppOutput = \x -> hPutStrLn xmproc0 x
-                       , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-                       , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
-                       , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                       , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
-                       , ppTitle = xmobarColor "#d0d0d0" "" . shorten 60     -- Title of active window in xmobar
-                       , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
-                       , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                       , ppExtras  = [windowCount]                           -- # of windows current workspace
-                       , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                       { ppOutput          = \x -> hPutStrLn xmproc0 x
+                       , ppCurrent         = xmobarColor "#c3e88d" ""              -- Current workspace in xmobar
+                       , ppVisible         = xmobarColor "#c3e88d" ""              -- Visible but not current workspace
+                       , ppHidden          = xmobarColor "#82AAFF" ""              -- Hidden workspaces in xmobar
+                       , ppHiddenNoWindows = xmobarColor "#F07178" ""              -- Hidden workspaces (no windows)
+                       , ppTitle           = xmobarColor "#d0d0d0" "" . shorten 60 -- Title of active window in xmobar
+                       , ppUrgent          = xmobarColor "#C45500" "" . wrap "" "" -- Urgent workspace
+                       , ppSep             =  "<fc=#666666> | </fc>"               -- Separators in xmobar
+                       , ppExtras          = [windowCount]                         -- # of windows current workspace
+                       , ppOrder           = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                        }
         } `additionalKeysP` myKeys
