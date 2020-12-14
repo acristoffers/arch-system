@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 rm -r ~/.doom.d ~/.config/xmobar
-cp -r dotfiles/doom.d/ ~/.doom.d
-cp -r dotfiles/vimrc ~/.vimrc
-cp -r dotfiles/tmux.conf ~/.tmux.conf
-cp -r dotfiles/config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
-cp -r dotfiles/config/xmobar/ ~/.config/xmobar
+rsync -a dotfiles/doom.d/ ~/.doom.d
+rsync -a dotfiles/vimrc ~/.vimrc
+rsync -a dotfiles/tmux.conf ~/.tmux.conf
+rsync -a dotfiles/config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+rsync -a dotfiles/config/xmobar/ ~/.config/xmobar
 
 if [ -f ~/.xmonad/xmonad.hs ]; then
   cp dotfiles/xmonad/xmonad.hs ~/.xmonad/xmonad.hs
