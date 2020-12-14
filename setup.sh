@@ -111,14 +111,14 @@ yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
 	alacritty firefox qalculate-gtk openssh xmonad-contrib rsync xclip \
 	pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-equalizer \
 	pulseaudio-zeroconf alsa-utils paprefs pavucontrol twmn rofi \
-    qt5-styleplugins arc-gtk-theme arc-kde arc-icon-theme
+    qt5-styleplugins arc-gtk-theme arc-kde arc-icon-theme xdg-user-dirs
 
-mkdir -p ~/Images ~/Music ~/Documents ~/Desktop ~/Developer
+xdg-user-dirs-update
+mkdir ~/Developer
 cp dotfiles/wallpaper.jpg ~/Images/wallpaper.jpg
 cp dotfiles/gtkrc-2.0 ~/.gtkrc-2.0
 rsync -a dotfiles/config/ ~/.config/
 rsync -a dotfiles/xmonad/ ~/.xmonad/
-rsync -a dotfiles/gtk-3.0/ ~/.config/gtk-3.0/
 
 sudo systemctl enable sddm
 systemctl --user enable pulseaudio

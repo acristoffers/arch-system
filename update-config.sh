@@ -4,8 +4,8 @@ rm -r ~/.doom.d ~/.config/xmobar
 rsync -a dotfiles/doom.d/ ~/.doom.d
 rsync -a dotfiles/vimrc ~/.vimrc
 rsync -a dotfiles/tmux.conf ~/.tmux.conf
-rsync -a dotfiles/config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
-rsync -a dotfiles/config/xmobar/ ~/.config/xmobar
+rsync -a dotfiles/gtkrc-2.0 ~/.gtkrc-2.0
+rsync -a dotfiles/config/ ~/.config
 
 if [ -f ~/.xmonad/xmonad.hs ]; then
   cp dotfiles/xmonad/xmonad.hs ~/.xmonad/xmonad.hs
