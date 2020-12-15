@@ -257,7 +257,7 @@ myKeys :: [(String, X ())]
 myKeys =
     -- Lock screen
         [ ("M-S-l", spawn "slock")
-        
+
     -- Xmonad
         , ("M-C-r", spawn "xmonad --recompile")      -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
@@ -412,7 +412,7 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 tall     = renamed [Replace "tall"]
            $ limitWindows 12
            $ mySpacing 4
-           $ reflectHoriz $ ResizableTall 1 (3/100) (2/3) []
+           $ reflectHoriz $ ResizableTall 1 (3/100) (1/2) []
 magnify  = renamed [Replace "magnify"]
            $ magnifier
            $ limitWindows 12
