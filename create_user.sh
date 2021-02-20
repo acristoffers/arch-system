@@ -3,14 +3,13 @@
 USERNAME=alan
 
 echo "Installing sudo"
-pacman -S sudo
+pacman -S doas
+echo "permit nopass keepenv :wheel" > /etc/doas.conf
 
 echo "Creating user $USERNAME"
-useradd -m $USERNAME
-usermod -aG wheel,games,users,uucp,rfkill,mail,sudo $USERNAME
-printf "%s\tALL=(ALL:ALL) ALL" $USERNAME >> /etc/sudoers
-
-echo "Set $USERNAME password"
-passwd $USERNAME
+systemctl enable systemd-homed.service
+systemctl start systemd-homed.service
+homectl create $USERNAME
+usermod -aG wheel,games,users,uucp,rfkill,mail $USERNAME
 
 echo "Log with your newly created user and run setup.sh"

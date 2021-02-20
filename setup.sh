@@ -15,7 +15,7 @@ fi
 pushd ~ || exit
 git clone https://aur.archlinux.org/yay.git --depth=1
 pushd yay || exit
-sudo pacman -S binutils fakeroot base-devel
+doas pacman -S binutils fakeroot base-devel
 makepkg -si
 popd || exit
 rm -rf yay
@@ -84,7 +84,7 @@ nvim ~/.promptline.sh -c 'argdo /truncation' \
 	-c 'wq'
 
 if ! grep -Fq fish /etc/shells; then
-	which fish | sudo tee -a /etc/shells
+	which fish | doas tee -a /etc/shells
 fi
 chsh -s "$(which fish)"
 
@@ -109,9 +109,8 @@ cp -r dotfiles/doom.d ~/.doom.d
 
 yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
 	alacritty firefox qalculate-gtk openssh xmonad-contrib rsync xclip \
-	pulseaudio pulseaudio-alsa pulseaudio-bluetooth pulseaudio-equalizer \
-	pulseaudio-zeroconf alsa-utils paprefs pavucontrol twmn rofi \
-    qt5-styleplugins arc-gtk-theme arc-kde arc-icon-theme xdg-user-dirs
+	pipewire alsa-utils paprefs pavucontrol twmn rofi qt5-styleplugins \
+    arc-gtk-theme arc-kde arc-icon-theme xdg-user-dirs
 
 xdg-user-dirs-update
 mkdir ~/Developer
@@ -120,8 +119,8 @@ cp dotfiles/gtkrc-2.0 ~/.gtkrc-2.0
 rsync -a dotfiles/config/ ~/.config/
 rsync -a dotfiles/xmonad/ ~/.xmonad/
 
-sudo systemctl enable sddm
-systemctl --user enable pulseaudio
+doas systemctl enable sddm
+systemctl --user enable pipewire
 amixer sset Master unmute
 amixer sset Master 80%
 
