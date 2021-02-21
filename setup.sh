@@ -114,7 +114,7 @@ yay -S nerd-fonts-inconsolata xmonad xmobar nitrogen picom trayer sddm slock \
 
 xdg-user-dirs-update
 mkdir ~/Developer
-cp dotfiles/wallpaper.jpg ~/Images/wallpaper.jpg
+cp dotfiles/wallpaper.jpg ~/Pictures/wallpaper.jpg
 cp dotfiles/gtkrc-2.0 ~/.gtkrc-2.0
 rsync -a dotfiles/config/ ~/.config/
 rsync -a dotfiles/xmonad/ ~/.xmonad/
