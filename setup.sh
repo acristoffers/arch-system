@@ -6,6 +6,8 @@ if [[ "$USER" = "root" ]]; then
 	exit 0
 fi
 
+doas cp pacman.conf /etc/paru.conf
+
 ################################################################################
 ###                                                                          ###
 ###                                Setup AUR                                 ###
