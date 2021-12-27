@@ -6,7 +6,28 @@ if [[ "$USER" = "root" ]]; then
 	exit 0
 fi
 
-doas cp pacman.conf /etc/paru.conf
+echo """
+[options]
+Color
+CheckSpace
+ParallelDownloads = 10
+SigLevel          = Required DatabaseOptional
+LocalFileSigLevel = Optional
+HoldPkg           = pacman glibc
+Architecture      = auto
+
+[core]
+Include = /etc/pacman.d/mirrorlist
+
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+[community]
+Include = /etc/pacman.d/mirrorlist
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+""" | sudo tee /etc/pacman.conf
 
 ################################################################################
 ###                                                                          ###
